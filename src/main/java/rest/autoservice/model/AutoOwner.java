@@ -27,7 +27,7 @@ public class AutoOwner {
     @JoinTable(name = "owners_autos",
             joinColumns = @JoinColumn(name = "owner_id"),
             inverseJoinColumns = @JoinColumn(name = "auto_id"))
-    private List<Auto> auto;
+    private List<Auto> autos;
     @OneToMany
     @JoinTable(name = "owners_orders",
             joinColumns = @JoinColumn(name = "owner_id"),

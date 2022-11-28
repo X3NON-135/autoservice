@@ -1,5 +1,8 @@
 package rest.autoservice.model;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.List;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -14,10 +17,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.List;
 
 @Getter
 @Setter
@@ -34,11 +33,12 @@ public class Order {
     private Auto auto;
     private String description;
     private LocalDate acceptanceDate;
+    private LocalDate completeDate;
     @OneToMany
     @JoinTable(name = "orders_services",
             joinColumns = @JoinColumn(name = "order_id"),
-            inverseJoinColumns = @JoinColumn(name = "service_id"))
-    private List<Service> services;
+            inverseJoinColumns = @JoinColumn(name = "duty_id"))
+    private List<Duty> duties;
     @OneToMany
     @JoinTable(name = "orders_products",
             joinColumns = @JoinColumn(name = "order_id"),
@@ -47,7 +47,6 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private Status status;
     private BigDecimal totalPrice;
-    private LocalDate completeDate;
 
     public enum Status {
         ACCEPTED("accepted"),

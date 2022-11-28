@@ -1,5 +1,6 @@
 package rest.autoservice.model;
 
+import java.math.BigDecimal;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -14,15 +15,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.math.BigDecimal;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
 @Entity
 @Table(name = "services")
-public class Service {
+public class Duty {
     @Id
     @GeneratedValue
     private Long id;
@@ -36,7 +35,7 @@ public class Service {
     @Enumerated(EnumType.STRING)
     private PaymentStatus paymentStatus;
     @Enumerated(EnumType.STRING)
-    private TypeOfService typeOfService;
+    private TypeOfDuty typeOfDuty;
 
     public enum PaymentStatus {
         PAID("paid"),
@@ -49,7 +48,7 @@ public class Service {
         }
     }
 
-    public enum TypeOfService {
+    public enum TypeOfDuty {
         DIAGNOSTICS("diagnostics"),
         CHANGE_OIL("change oil in gearbox"),
         CHANGE_GRM("change GRM"),
@@ -58,7 +57,7 @@ public class Service {
 
         private String value;
 
-        TypeOfService(String value) {
+        TypeOfDuty(String value) {
             this.value = value;
         }
     }
