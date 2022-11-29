@@ -1,0 +1,21 @@
+package rest.autoservice.service.impl;
+
+import org.springframework.stereotype.Component;
+import rest.autoservice.model.AutoOwner;
+import rest.autoservice.repository.AutoOwnerRepository;
+import rest.autoservice.service.AutoOwnerService;
+
+@Component
+public class AutoOwnerServiceImpl implements AutoOwnerService {
+    private final AutoOwnerRepository autoOwnerRepository;
+
+    public AutoOwnerServiceImpl(AutoOwnerRepository autoOwnerRepository) {
+        this.autoOwnerRepository = autoOwnerRepository;
+    }
+
+    @Override
+    public AutoOwner findById(Long id) {
+        return autoOwnerRepository.findById(id).orElseThrow(() ->
+                new RuntimeException("Can't find auto owner by id=" + id));
+    }
+}
