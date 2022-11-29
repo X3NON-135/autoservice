@@ -14,6 +14,11 @@ public class AutoOwnerServiceImpl implements AutoOwnerService {
     }
 
     @Override
+    public AutoOwner save(AutoOwner autoOwner) {
+        return autoOwnerRepository.save(autoOwner);
+    }
+
+    @Override
     public AutoOwner findById(Long id) {
         return autoOwnerRepository.findById(id).orElseThrow(() ->
                 new RuntimeException("Can't find auto owner by id=" + id));

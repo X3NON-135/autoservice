@@ -14,6 +14,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Product save(Product product) {
+        return productRepository.save(product);
+    }
+
+    @Override
     public Product findById(Long id) {
         return productRepository.findById(id).orElseThrow(() ->
                 new RuntimeException("Can't find product by id=" + id));

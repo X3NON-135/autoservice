@@ -14,6 +14,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public Order save(Order order) {
+        return orderRepository.save(order);
+    }
+
+    @Override
     public Order findById(Long id) {
         return orderRepository.findById(id).orElseThrow(() ->
                 new RuntimeException("Can't find order by id=" + id));

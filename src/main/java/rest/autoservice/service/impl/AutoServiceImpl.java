@@ -14,6 +14,11 @@ public class AutoServiceImpl implements AutoService {
     }
 
     @Override
+    public Auto save(Auto auto) {
+        return autoRepository.save(auto);
+    }
+
+    @Override
     public Auto findById(Long id) {
         return autoRepository.findById(id).orElseThrow(() ->
                 new RuntimeException("Can't find auto by id=" + id));

@@ -14,6 +14,11 @@ public class DutyServiceImpl implements DutyService {
     }
 
     @Override
+    public Duty save(Duty duty) {
+        return dutyRepository.save(duty);
+    }
+
+    @Override
     public Duty findById(Long id) {
         return dutyRepository.findById(id).orElseThrow(() ->
                 new RuntimeException("Can't find duty by id=" + id));

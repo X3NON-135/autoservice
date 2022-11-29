@@ -14,6 +14,11 @@ public class MasterServiceImpl implements MasterService {
     }
 
     @Override
+    public Master save(Master master) {
+        return masterRepository.save(master);
+    }
+
+    @Override
     public Master findById(Long id) {
         return masterRepository.findById(id).orElseThrow(() ->
                 new RuntimeException("Can't find master by id=" + id));
