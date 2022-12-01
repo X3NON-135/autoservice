@@ -14,7 +14,7 @@ import rest.autoservice.model.Auto;
 import rest.autoservice.service.AutoService;
 
 @RestController
-@RequestMapping("/auto")
+@RequestMapping("/autos")
 public class AutoController {
     private final AutoService autoService;
     private final ResponseDtoMapper<AutoResponseDto, Auto> responseMapper;
@@ -34,7 +34,7 @@ public class AutoController {
         return responseMapper.toDto(auto);
     }
 
-    @PutMapping("{/id}")
+    @PutMapping("/{id}")
     public AutoResponseDto update(@PathVariable Long id,
                                   @RequestBody AutoRequestDto requestDto) {
         Auto auto = requestMapper.toModel(requestDto);

@@ -19,7 +19,7 @@ import rest.autoservice.model.Order;
 import rest.autoservice.service.AutoOwnerService;
 
 @RestController
-@RequestMapping("/owner")
+@RequestMapping("/owners")
 public class AutoOwnerController {
     private final AutoOwnerService autoOwnerService;
     private final ResponseDtoMapper<AutoOwnerResponseDto, AutoOwner> responseMapper;
