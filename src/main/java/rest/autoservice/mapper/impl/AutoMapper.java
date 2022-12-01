@@ -10,7 +10,7 @@ import rest.autoservice.service.AutoOwnerService;
 
 @Component
 public class AutoMapper implements RequestDtoMapper<AutoRequestDto, Auto>,
-        ResponseDtoMapper<AutoResponseDto, Auto>{
+        ResponseDtoMapper<AutoResponseDto, Auto> {
     private final AutoOwnerService autoOwnerService;
 
     public AutoMapper(AutoOwnerService autoOwnerService) {

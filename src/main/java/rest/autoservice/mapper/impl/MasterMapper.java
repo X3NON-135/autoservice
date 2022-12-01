@@ -7,16 +7,13 @@ import rest.autoservice.dto.master.MasterResponseDto;
 import rest.autoservice.mapper.RequestDtoMapper;
 import rest.autoservice.mapper.ResponseDtoMapper;
 import rest.autoservice.model.Master;
-import rest.autoservice.service.OrderService;
 
 @Component
 public class MasterMapper implements RequestDtoMapper<MasterRequestDto, Master>,
         ResponseDtoMapper<MasterResponseDto, Master> {
-    private final OrderService orderService;
     private final OrderMapper orderMapper;
 
-    public MasterMapper(OrderService orderService, OrderMapper orderMapper) {
-        this.orderService = orderService;
+    public MasterMapper(OrderMapper orderMapper) {
         this.orderMapper = orderMapper;
     }
 

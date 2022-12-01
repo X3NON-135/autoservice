@@ -6,11 +6,7 @@ import rest.autoservice.dto.owner.AutoOwnerRequestDto;
 import rest.autoservice.dto.owner.AutoOwnerResponseDto;
 import rest.autoservice.mapper.RequestDtoMapper;
 import rest.autoservice.mapper.ResponseDtoMapper;
-import rest.autoservice.model.Auto;
 import rest.autoservice.model.AutoOwner;
-import rest.autoservice.model.Order;
-import rest.autoservice.service.AutoService;
-import rest.autoservice.service.OrderService;
 
 @Component
 public class AutoOwnerMapper implements RequestDtoMapper<AutoOwnerRequestDto, AutoOwner>,

@@ -23,10 +23,10 @@ public class DutyMapper implements RequestDtoMapper<DutyRequestDto, Duty>,
 
     @Override
     public Duty toModel(DutyRequestDto requestDto) {
-        Duty duty = new Duty();
+        Duty duty = new Duty(Duty.PaymentStatus.UNPAID);
         duty.setMaster(masterService.findById(requestDto.getMasterId()));
         duty.setOrder(orderService.findById(requestDto.getOrderId()));
-        duty.setTypeOfDuty(Duty.TypeOfDuty.valueOf(requestDto.getTypeOfDuty()));
+        duty.setTypeOfDuty(Duty.TypeOfDuty.valueOf(requestDto.getTypeOfDuty().toUpperCase()));
         duty.setPrice(requestDto.getPrice());
         return duty;
     }

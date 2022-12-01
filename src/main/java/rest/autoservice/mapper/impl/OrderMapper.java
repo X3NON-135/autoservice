@@ -8,7 +8,6 @@ import rest.autoservice.dto.order.OrderResponseDto;
 import rest.autoservice.mapper.RequestDtoMapper;
 import rest.autoservice.mapper.ResponseDtoMapper;
 import rest.autoservice.model.Order;
-import rest.autoservice.model.Product;
 import rest.autoservice.service.AutoService;
 
 @Component
