@@ -1,31 +1,29 @@
 package rest.autoservice.mapper.impl;
 
+import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 import rest.autoservice.dto.order.OrderRequestDto;
 import rest.autoservice.dto.order.OrderResponseDto;
 import rest.autoservice.mapper.RequestDtoMapper;
 import rest.autoservice.mapper.ResponseDtoMapper;
-import rest.autoservice.model.Duty;
 import rest.autoservice.model.Order;
 import rest.autoservice.model.Product;
 import rest.autoservice.service.AutoService;
-import rest.autoservice.service.DutyService;
-import rest.autoservice.service.ProductService;
 
 @Component
 public class OrderMapper implements RequestDtoMapper<OrderRequestDto, Order>,
         ResponseDtoMapper<OrderResponseDto, Order> {
     private final AutoService autoService;
-    private final DutyService dutyService;
-    private final ProductService productService;
+    private final DutyMapper dutyMapper;
+    private final ProductMapper productMapper;
 
     public OrderMapper(AutoService autoService,
-                       DutyService dutyService,
-                       ProductService productService) {
+                       DutyMapper dutyMapper,
+                       ProductMapper productMapper) {
         this.autoService = autoService;
-        this.dutyService = dutyService;
-        this.productService = productService;
+        this.dutyMapper = dutyMapper;
+        this.productMapper = productMapper;
     }
 
     @Override
@@ -35,14 +33,6 @@ public class OrderMapper implements RequestDtoMapper<OrderRequestDto, Order>,
         order.setDescription(requestDto.getDescription());
         order.setAcceptanceDate(requestDto.getAcceptanceDate());
         order.setCompleteDate(requestDto.getCompleteDate());
-        order.setDuties(requestDto.getDutiesIds().stream()
-                .map(dutyService::findById)
-                .collect(Collectors.toList()));
-        order.setProducts(requestDto.getProductsIds().stream()
-                .map(productService::findById)
-                .collect(Collectors.toList()));
-        order.setStatus(requestDto.getStatus());
-        order.setTotalPrice(requestDto.getTotalPrice());
         return order;
     }
 
@@ -52,15 +42,15 @@ public class OrderMapper implements RequestDtoMapper<OrderRequestDto, Order>,
         responseDto.setId(order.getId());
         responseDto.setAutoId(order.getAuto().getId());
         responseDto.setDescription(order.getDescription());
-        responseDto.setAcceptanceDate(order.getAcceptanceDate());
-        responseDto.setCompleteDate(order.getCompleteDate());
-        responseDto.setDutiesIds(order.getDuties().stream()
-                .map(Duty::getId)
+        responseDto.setAcceptanceDate(LocalDateTime.from(order.getAcceptanceDate()));
+        responseDto.setCompleteDate(LocalDateTime.from(order.getCompleteDate()));
+        responseDto.setDuties(order.getDuties().stream()
+                .map(dutyMapper::toDto)
                 .collect(Collectors.toList()));
-        responseDto.setProductsIds(order.getProducts().stream()
-                .map(Product::getId)
+        responseDto.setProducts(order.getProducts().stream()
+                .map(productMapper::toDto)
                 .collect(Collectors.toList()));
-        responseDto.setStatus(order.getStatus());
+        responseDto.setStatus(String.valueOf(order.getStatus()));
         responseDto.setTotalPrice(order.getTotalPrice());
         return responseDto;
     }

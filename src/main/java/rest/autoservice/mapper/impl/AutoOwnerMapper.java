@@ -15,34 +15,32 @@ import rest.autoservice.service.OrderService;
 @Component
 public class AutoOwnerMapper implements RequestDtoMapper<AutoOwnerRequestDto, AutoOwner>,
         ResponseDtoMapper<AutoOwnerResponseDto, AutoOwner> {
-    private final AutoService autoService;
-    private final OrderService orderService;
+    private final AutoMapper autoMapper;
+    private final OrderMapper orderMapper;
 
-    public AutoOwnerMapper(AutoService autoService, OrderService orderService) {
-        this.autoService = autoService;
-        this.orderService = orderService;
+    public AutoOwnerMapper(AutoMapper autoMapper,
+                           OrderMapper orderMapper) {
+        this.autoMapper = autoMapper;
+        this.orderMapper = orderMapper;
     }
 
     @Override
     public AutoOwner toModel(AutoOwnerRequestDto requestDto) {
         AutoOwner autoOwner = new AutoOwner();
-        autoOwner.setAutos(requestDto.getAutoIds().stream()
-                .map(autoService::findById)
-                .collect(Collectors.toList()));
-        autoOwner.setOrders(requestDto.getOrdersIds().stream()
-                .map(orderService::findById)
-                .collect(Collectors.toList()));
+        autoOwner.setFullName(requestDto.getFullName());
         return autoOwner;
     }
 
     @Override
     public AutoOwnerResponseDto toDto(AutoOwner autoOwner) {
         AutoOwnerResponseDto responseDto = new AutoOwnerResponseDto();
-        responseDto.setAutoIds(autoOwner.getAutos().stream()
-                .map(Auto::getId)
+        responseDto.setId(autoOwner.getId());
+        responseDto.setFullName(autoOwner.getFullName());
+        responseDto.setAutos(autoOwner.getAutos().stream()
+                .map(autoMapper::toDto)
                 .collect(Collectors.toList()));
-        responseDto.setOrdersIds(autoOwner.getOrders().stream()
-                .map(Order::getId)
+        responseDto.setOrders(autoOwner.getOrders().stream()
+                .map(orderMapper::toDto)
                 .collect(Collectors.toList()));
         return responseDto;
     }

@@ -26,9 +26,8 @@ public class DutyMapper implements RequestDtoMapper<DutyRequestDto, Duty>,
         Duty duty = new Duty();
         duty.setMaster(masterService.findById(requestDto.getMasterId()));
         duty.setOrder(orderService.findById(requestDto.getOrderId()));
+        duty.setTypeOfDuty(Duty.TypeOfDuty.valueOf(requestDto.getTypeOfDuty()));
         duty.setPrice(requestDto.getPrice());
-        duty.setPaymentStatus(requestDto.getPaymentStatus());
-        duty.setTypeOfDuty(requestDto.getTypeOfDuty());
         return duty;
     }
 
@@ -38,9 +37,9 @@ public class DutyMapper implements RequestDtoMapper<DutyRequestDto, Duty>,
         responseDto.setId(duty.getId());
         responseDto.setOrderId(duty.getOrder().getId());
         responseDto.setMasterId(duty.getMaster().getId());
+        responseDto.setPaymentStatus(String.valueOf(duty.getPaymentStatus()));
+        responseDto.setTypeOfDuty(String.valueOf(duty.getTypeOfDuty()));
         responseDto.setPrice(duty.getPrice());
-        responseDto.setPaymentStatus(duty.getPaymentStatus());
-        responseDto.setTypeOfDuty(duty.getTypeOfDuty());
         return responseDto;
     }
 }

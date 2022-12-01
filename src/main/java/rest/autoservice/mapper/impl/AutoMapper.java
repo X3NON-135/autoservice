@@ -9,24 +9,12 @@ import rest.autoservice.model.Auto;
 import rest.autoservice.service.AutoOwnerService;
 
 @Component
-public class AutoMapper implements ResponseDtoMapper<AutoResponseDto, Auto>,
-        RequestDtoMapper<AutoRequestDto, Auto> {
+public class AutoMapper implements RequestDtoMapper<AutoRequestDto, Auto>,
+        ResponseDtoMapper<AutoResponseDto, Auto>{
     private final AutoOwnerService autoOwnerService;
 
     public AutoMapper(AutoOwnerService autoOwnerService) {
         this.autoOwnerService = autoOwnerService;
-    }
-
-    @Override
-    public AutoResponseDto toDto(Auto auto) {
-        AutoResponseDto responseDto = new AutoResponseDto();
-        responseDto.setId(auto.getId());
-        responseDto.setBrand(auto.getBrand());
-        responseDto.setModel(auto.getModel());
-        responseDto.setNumber(auto.getNumber());
-        responseDto.setManufactureDate(auto.getManufactureDate());
-        responseDto.setOwnerId(auto.getId());
-        return responseDto;
     }
 
     @Override
@@ -38,5 +26,17 @@ public class AutoMapper implements ResponseDtoMapper<AutoResponseDto, Auto>,
         auto.setManufactureDate(requestDto.getManufactureDate());
         auto.setOwner(autoOwnerService.findById(requestDto.getOwnerId()));
         return auto;
+    }
+
+    @Override
+    public AutoResponseDto toDto(Auto auto) {
+        AutoResponseDto responseDto = new AutoResponseDto();
+        responseDto.setId(auto.getId());
+        responseDto.setBrand(auto.getBrand());
+        responseDto.setModel(auto.getModel());
+        responseDto.setNumber(auto.getNumber());
+        responseDto.setManufactureDate(auto.getManufactureDate());
+        responseDto.setOwnerId(auto.getOwner().getId());
+        return responseDto;
     }
 }
