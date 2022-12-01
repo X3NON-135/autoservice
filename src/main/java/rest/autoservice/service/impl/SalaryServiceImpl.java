@@ -2,8 +2,6 @@ package rest.autoservice.service.impl;
 
 import org.springframework.stereotype.Service;
 import rest.autoservice.model.Duty;
-import rest.autoservice.model.Master;
-import rest.autoservice.repository.MasterRepository;
 import rest.autoservice.service.DutyService;
 import rest.autoservice.service.DutyStatusService;
 import rest.autoservice.service.SalaryService;
@@ -13,6 +11,7 @@ import java.util.List;
 
 @Service
 public class SalaryServiceImpl implements SalaryService {
+    private static final long PERCENT_FROM_DUTY_PRICE = (long) 0.04;
     private final DutyService dutyService;
     private final DutyStatusService dutyStatusService;
 
@@ -27,7 +26,7 @@ public class SalaryServiceImpl implements SalaryService {
         List<Duty> duties = dutyService.getDutyByMasterIdAndOrOrderId(masterId, orderId);
         duties.forEach(d -> dutyStatusService.updateDutyStatusById(d.getId(), Duty.PaymentStatus.PAID));
         return duties.stream()
-                .map(d -> d.getPrice().multiply(BigDecimal.valueOf(0.04)))
+                .map(d -> d.getPrice().multiply(BigDecimal.valueOf(PERCENT_FROM_DUTY_PRICE)))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }
