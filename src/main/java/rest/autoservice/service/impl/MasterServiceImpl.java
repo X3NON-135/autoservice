@@ -1,11 +1,11 @@
 package rest.autoservice.service.impl;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import rest.autoservice.model.Master;
 import rest.autoservice.repository.MasterRepository;
 import rest.autoservice.service.MasterService;
 
-@Component
+@Service
 public class MasterServiceImpl implements MasterService {
     private final MasterRepository masterRepository;
 

@@ -1,11 +1,11 @@
 package rest.autoservice.service.impl;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import rest.autoservice.model.Duty;
 import rest.autoservice.repository.DutyRepository;
 import rest.autoservice.service.DutyService;
 
-@Component
+@Service
 public class DutyServiceImpl implements DutyService {
     private final DutyRepository dutyRepository;
 

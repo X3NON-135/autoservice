@@ -1,11 +1,11 @@
 package rest.autoservice.service.impl;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import rest.autoservice.model.Order;
 import rest.autoservice.repository.OrderRepository;
 import rest.autoservice.service.OrderService;
 
-@Component
+@Service
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
 

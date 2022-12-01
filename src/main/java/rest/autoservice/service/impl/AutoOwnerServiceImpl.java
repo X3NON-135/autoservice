@@ -1,11 +1,11 @@
 package rest.autoservice.service.impl;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import rest.autoservice.model.AutoOwner;
 import rest.autoservice.repository.AutoOwnerRepository;
 import rest.autoservice.service.AutoOwnerService;
 
-@Component
+@Service
 public class AutoOwnerServiceImpl implements AutoOwnerService {
     private final AutoOwnerRepository autoOwnerRepository;
 
