@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import rest.autoservice.dto.order.OrderResponseDto;
 
 @Getter
 @Setter
@@ -13,6 +14,6 @@ import lombok.ToString;
 public class MasterResponseDto {
     private Long id;
     private String fullName;
-    private List<Long> finishedOrdersIds;
+    private List<OrderResponseDto> finishedOrders;
 }
 

@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import rest.autoservice.dto.auto.AutoResponseDto;
+import rest.autoservice.dto.order.OrderResponseDto;
 
 @Getter
 @Setter
@@ -12,6 +14,7 @@ import lombok.ToString;
 @ToString
 public class AutoOwnerResponseDto {
     private Long id;
-    private List<Long> autoIds;
-    private List<Long> ordersIds;
+    private String fullName;
+    private List<AutoResponseDto> autos;
+    private List<OrderResponseDto> orders;
 }

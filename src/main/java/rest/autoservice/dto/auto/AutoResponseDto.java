@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -13,7 +15,7 @@ public class AutoResponseDto {
     private Long id;
     private String brand;
     private String model;
-    private String manufactureDate;
+    private LocalDate manufactureDate;
     private String number;
     private Long ownerId;
 }

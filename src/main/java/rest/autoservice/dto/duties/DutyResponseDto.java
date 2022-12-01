@@ -16,6 +16,6 @@ public class DutyResponseDto {
     private Long orderId;
     private Long masterId;
     private BigDecimal price;
-    private Duty.PaymentStatus paymentStatus;
-    private Duty.TypeOfDuty typeOfDuty;
+    private String paymentStatus;
+    private String typeOfDuty;
 }

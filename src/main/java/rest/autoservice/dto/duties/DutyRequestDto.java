@@ -15,6 +15,5 @@ public class DutyRequestDto {
     private Long orderId;
     private Long masterId;
     private BigDecimal price;
-    private Duty.PaymentStatus paymentStatus;
     private Duty.TypeOfDuty typeOfDuty;
 }

@@ -1,13 +1,11 @@
 package rest.autoservice.dto.order;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import rest.autoservice.model.Order;
 
 @Getter
 @Setter
@@ -16,10 +14,8 @@ import rest.autoservice.model.Order;
 public class OrderRequestDto {
     private Long autoId;
     private String description;
+    @JsonFormat(pattern = "dd.MM.yyyy")
     private LocalDate acceptanceDate;
+    @JsonFormat(pattern = "dd.MM.yyyy")
     private LocalDate completeDate;
-    private List<Long> dutiesIds;
-    private List<Long> productsIds;
-    private Order.Status status;
-    private BigDecimal totalPrice;
 }
