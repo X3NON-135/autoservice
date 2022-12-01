@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,7 +28,7 @@ public class Duty {
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "master_id")
     private Master master;
     private BigDecimal price;
@@ -61,5 +60,9 @@ public class Duty {
         TypeOfDuty(String value) {
             this.value = value;
         }
+    }
+
+    public Duty(PaymentStatus paymentStatus) {
+        this.paymentStatus = paymentStatus;
     }
 }

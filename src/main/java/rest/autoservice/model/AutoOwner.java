@@ -1,12 +1,12 @@
 package rest.autoservice.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Getter;
@@ -24,14 +24,10 @@ public class AutoOwner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String fullName;
+    @OneToMany(mappedBy = "owner")
+    private List<Auto> autos = new ArrayList<>();
     @OneToMany
-    @JoinTable(name = "owners_autos",
-            joinColumns = @JoinColumn(name = "owner_id"),
-            inverseJoinColumns = @JoinColumn(name = "auto_id"))
-    private List<Auto> autos;
-    @OneToMany
-    @JoinTable(name = "owners_orders",
-            joinColumns = @JoinColumn(name = "owner_id"),
-            inverseJoinColumns = @JoinColumn(name = "order_id"))
-    private List<Order> orders;
+    @JoinColumn(name = "owner_id")
+    private List<Order> orders = new ArrayList<>();
 }

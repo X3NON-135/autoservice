@@ -1,5 +1,6 @@
 package rest.autoservice.model;
 
+import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,7 +25,7 @@ public class Auto {
     private Long id;
     private String brand;
     private String model;
-    private String manufactureDate;
+    private LocalDate manufactureDate;
     private String number;
     @ManyToOne
     @JoinColumn(name = "owner_id")

@@ -1,5 +1,6 @@
 package rest.autoservice.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,5 +30,5 @@ public class Master {
     @JoinTable(name = "masters_orders",
             joinColumns = @JoinColumn(name = "master_id"),
             inverseJoinColumns = @JoinColumn(name = "order_id"))
-    private List<Order> finishedOrders;
+    private List<Order> finishedOrders = new ArrayList<>();
 }
