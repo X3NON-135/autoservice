@@ -14,7 +14,7 @@ import rest.autoservice.model.Duty;
 import rest.autoservice.service.DutyService;
 
 @RestController
-@RequestMapping("/duty")
+@RequestMapping("/duties")
 public class DutyController {
     private final DutyService dutyService;
     private final RequestDtoMapper<DutyRequestDto, Duty> requestMapper;
