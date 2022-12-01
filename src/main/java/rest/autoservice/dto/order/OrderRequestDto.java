@@ -1,7 +1,7 @@
 package rest.autoservice.dto.order;
 
-import java.time.LocalDate;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,8 +14,8 @@ import lombok.ToString;
 public class OrderRequestDto {
     private Long autoId;
     private String description;
-    @JsonFormat(pattern = "dd.MM.yyyy")
-    private LocalDate acceptanceDate;
-    @JsonFormat(pattern = "dd.MM.yyyy")
-    private LocalDate completeDate;
+    @JsonFormat(pattern = "dd.MM.yyyy HH:mm")
+    private LocalDateTime acceptanceDate;
+    @JsonFormat(pattern = "dd.MM.yyyy HH:mm")
+    private LocalDateTime completeDate;
 }
