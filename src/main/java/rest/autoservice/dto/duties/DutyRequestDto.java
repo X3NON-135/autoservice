@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import rest.autoservice.model.Duty;
 
 @Getter
 @Setter
@@ -15,5 +14,5 @@ public class DutyRequestDto {
     private Long orderId;
     private Long masterId;
     private BigDecimal price;
-    private Duty.TypeOfDuty typeOfDuty;
+    private String typeOfDuty;
 }
