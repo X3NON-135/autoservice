@@ -1,8 +1,7 @@
 package rest.autoservice.service;
 
-import rest.autoservice.model.Duty;
-
 import java.util.List;
+import rest.autoservice.model.Duty;
 
 public interface DutyService {
     Duty save(Duty duty);
