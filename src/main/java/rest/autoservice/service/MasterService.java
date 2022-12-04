@@ -10,4 +10,8 @@ public interface MasterService {
     Master findById(Long id);
 
     List<Order> getCompletedOrdersById(Long id);
+
+    List<Master> getAllMastersByOrderId(Long id);
+
+    Master addFinishedOrder(Long id, Order order);
 }

@@ -28,6 +28,18 @@ public class MasterServiceImpl implements MasterService {
 
     @Override
     public List<Order> getCompletedOrdersById(Long id) {
-        return masterRepository.getCompletedOrdersById(id);
+        return masterRepository.getFinishedOrdersById(id);
+    }
+
+    @Override
+    public List<Master> getAllMastersByOrderId(Long id) {
+        return masterRepository.getAllMastersByOrderId(id);
+    }
+
+    @Override
+    public Master addFinishedOrder(Long id, Order order) {
+        Master master = findById(id);
+        masterRepository.getFinishedOrdersById(id).add(order);
+        return master;
     }
 }
