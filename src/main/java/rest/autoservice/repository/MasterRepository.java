@@ -13,7 +13,7 @@ public interface MasterRepository extends JpaRepository<Master, Long> {
             + " INNER JOIN FETCH o.duties d "
             + " INNER JOIN FETCH d.master m "
             + " WHERE m.id = :id")
-    List<Order> getCompletedOrdersById(Long id);
+    List<Order> getFinishedOrdersById(Long id);
 
     @Query("SELECT m FROM Master m WHERE m.id in "
             + " (SELECT o FROM Order o "
