@@ -1,5 +1,6 @@
 package rest.autoservice.controller;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -29,12 +30,14 @@ public class AutoController {
     }
 
     @PostMapping
+    @ApiOperation(value = "create new Auto")
     public AutoResponseDto createAuto(@RequestBody AutoRequestDto requestDto) {
         Auto auto = autoService.save(requestMapper.toModel(requestDto));
         return responseMapper.toDto(auto);
     }
 
     @PutMapping("/{id}")
+    @ApiOperation(value = "update Auto by id")
     public AutoResponseDto update(@PathVariable Long id,
                                   @RequestBody AutoRequestDto requestDto) {
         Auto auto = requestMapper.toModel(requestDto);

@@ -1,5 +1,6 @@
 package rest.autoservice.controller;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -29,12 +30,14 @@ public class ProductController {
     }
 
     @PostMapping
+    @ApiOperation(value = "create new Product")
     public ProductResponseDto create(@RequestBody ProductRequestDto requestDto) {
         Product product = productService.save(requestMapper.toModel(requestDto));
         return responseMapper.toDto(product);
     }
 
     @PutMapping("/{id}")
+    @ApiOperation(value = "update Product by id")
     public ProductResponseDto update(@PathVariable Long id,
                                      @RequestBody ProductRequestDto requestDto) {
         Product product = requestMapper.toModel(requestDto);

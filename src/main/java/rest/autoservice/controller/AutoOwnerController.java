@@ -2,6 +2,8 @@ package rest.autoservice.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,12 +39,14 @@ public class AutoOwnerController {
     }
 
     @PostMapping
+    @ApiOperation(value = "create new Auto Owner")
     public AutoOwnerResponseDto create(@RequestBody AutoOwnerRequestDto requestDto) {
         AutoOwner autoOwner = autoOwnerService.save(requestMapper.toModel(requestDto));
         return responseMapper.toDto(autoOwner);
     }
 
     @PutMapping("/{id}")
+    @ApiOperation(value = "update Auto Owner by id")
     public AutoOwnerResponseDto update(@PathVariable Long id,
                                        @RequestBody AutoOwnerRequestDto requestDto) {
         AutoOwner autoOwner = requestMapper.toModel(requestDto);
@@ -51,6 +55,7 @@ public class AutoOwnerController {
     }
 
     @GetMapping("/{id}/orders")
+    @ApiOperation(value = "get Auto Owner's orders by id")
     public List<OrderResponseDto> getOwnersOrders(@PathVariable Long id) {
         AutoOwner autoOwner = autoOwnerService.findById(id);
         return autoOwner.getOrders().stream()

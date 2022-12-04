@@ -1,5 +1,6 @@
 package rest.autoservice.controller;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,33 +15,35 @@ import rest.autoservice.mapper.RequestDtoMapper;
 import rest.autoservice.mapper.ResponseDtoMapper;
 import rest.autoservice.model.Duty;
 import rest.autoservice.service.DutyService;
-import rest.autoservice.service.DutyStatusService;
+import rest.autoservice.service.StatusService;
 
 @RestController
 @RequestMapping("/duties")
 public class DutyController {
     private final DutyService dutyService;
-    private final DutyStatusService dutyStatusService;
+    private final StatusService statusService;
     private final RequestDtoMapper<DutyRequestDto, Duty> requestMapper;
     private final ResponseDtoMapper<DutyResponseDto, Duty> responseMapper;
 
     public DutyController(DutyService dutyService,
-                          DutyStatusService dutyStatusService,
+                          StatusService statusService,
                           RequestDtoMapper<DutyRequestDto, Duty> requestMapper,
                           ResponseDtoMapper<DutyResponseDto, Duty> responseMapper) {
         this.dutyService = dutyService;
-        this.dutyStatusService = dutyStatusService;
+        this.statusService = statusService;
         this.requestMapper = requestMapper;
         this.responseMapper = responseMapper;
     }
 
     @PostMapping
+    @ApiOperation(value = "create new Duty")
     public DutyResponseDto create(@RequestBody DutyRequestDto requestDto) {
         Duty duty = dutyService.save(requestMapper.toModel(requestDto));
         return responseMapper.toDto(duty);
     }
 
     @PutMapping("/{id}")
+    @ApiOperation(value = "update Duty by id")
     public DutyResponseDto update(@PathVariable Long id,
                                   @RequestBody DutyRequestDto requestDto) {
         Duty duty = requestMapper.toModel(requestDto);
@@ -49,10 +52,12 @@ public class DutyController {
     }
 
     @GetMapping("/{id}/update-status")
+    @ApiOperation(value = "update Duty's status by id")
     public DutyResponseDto updateStatus(@PathVariable Long id,
                                         @RequestParam("status") String paymentStatus) {
         Duty updatedDuty = dutyService.save(
-                dutyStatusService.updateDutyStatusById(id, Duty.PaymentStatus.valueOf(paymentStatus.toUpperCase())));
+                statusService.updateDutyStatusById(
+                        id, Duty.PaymentStatus.valueOf(paymentStatus.toUpperCase())));
         return responseMapper.toDto(updatedDuty);
     }
 }

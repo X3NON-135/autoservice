@@ -1,5 +1,10 @@
 package rest.autoservice.controller;
 
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,10 +21,6 @@ import rest.autoservice.mapper.impl.OrderMapper;
 import rest.autoservice.model.Master;
 import rest.autoservice.service.MasterService;
 import rest.autoservice.service.SalaryService;
-
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/masters")
@@ -43,12 +44,14 @@ public class MasterController {
     }
 
     @PostMapping
+    @ApiOperation(value = "create new Master")
     public MasterResponseDto create(@RequestBody MasterRequestDto requestDto) {
         Master master = masterService.save(requestMapper.toModel(requestDto));
         return responseMapper.toDto(master);
     }
 
     @PutMapping("/{id}")
+    @ApiOperation(value = "update Master by id")
     public MasterResponseDto update(@PathVariable Long id,
                                     @RequestBody MasterRequestDto requestDto) {
         Master master = requestMapper.toModel(requestDto);
@@ -57,15 +60,17 @@ public class MasterController {
     }
 
     @GetMapping("/{id}/orders")
+    @ApiOperation(value = "get Master's orders by id")
     public List<OrderResponseDto> getFinishedOrdersById(@PathVariable Long id) {
         return masterService.getCompletedOrdersById(id).stream()
                 .map(orderMapper::toDto)
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/{masterId}/orders/{odrderId}/salary")
-    public BigDecimal countMastersSalaryByOrderId(@PathVariable Long masterId,
-                                                  @PathVariable Long orderId) {
+    @GetMapping("/{masterId}/orders/{orderId}/salary")
+    @ApiOperation(value = "calculate Master's salary per order by id")
+    public BigDecimal calculateMastersSalaryByOrderId(@PathVariable Long masterId,
+                                                      @PathVariable Long orderId) {
         return salaryService.getMasterSalaryByMasterIdAndOrderId(masterId, orderId);
     }
 }
