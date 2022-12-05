@@ -1,9 +1,9 @@
 package rest.autoservice.model;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -35,8 +35,10 @@ public class Order {
     @JoinColumn(name = "auto_id")
     private Auto auto;
     private String description;
+    @Column(name = "acceptance_date")
     private LocalDateTime acceptanceDate;
-    private LocalDateTime completeDate;
+    @Column(name = "complete_date")
+    private LocalDateTime finishedDate;
     @OneToMany(mappedBy = "order")
     private List<Duty> duties = new ArrayList<>();
     @ManyToMany
@@ -46,13 +48,14 @@ public class Order {
     private List<Product> products = new ArrayList<>();
     @Enumerated(EnumType.STRING)
     private Status status;
-    private BigDecimal totalPrice;
+    @Column(name = "total_price")
+    private double totalPrice;
 
     public enum Status {
         ACCEPTED("accepted"),
         IN_PROCESS("process"),
-        SUCCESS_DONE("successfully done"),
-        NOT_SUCCESS_DONE("not successfully done"),
+        SUCCESS_DONE("completed"),
+        NOT_SUCCESS_DONE("failure"),
         PAID("paid");
 
         private final String value;

@@ -1,13 +1,12 @@
 package rest.autoservice.model;
 
-import java.math.BigDecimal;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Getter;
@@ -20,21 +19,21 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "services")
+@Table(name = "duties")
 public class Duty {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "order_id")
     private Order order;
     @ManyToOne
-    @JoinColumn(name = "master_id")
     private Master master;
-    private BigDecimal price;
+    private double price;
     @Enumerated(EnumType.STRING)
+    @Column(name = "payment_status")
     private PaymentStatus paymentStatus;
     @Enumerated(EnumType.STRING)
+    @Column(name = "type_of_duty")
     private TypeOfDuty typeOfDuty;
 
     public enum PaymentStatus {
@@ -51,7 +50,7 @@ public class Duty {
     public enum TypeOfDuty {
         DIAGNOSTICS("diagnostics"),
         CHANGE_OIL("change oil in gearbox"),
-        CHANGE_GRM("change GRM"),
+        CHANGE_GRM("change belt of timing (GRM)"),
         AUTO_OVERHAUL("car overhaul"),
         REPAIR_ENGINE("repair engine");
 
