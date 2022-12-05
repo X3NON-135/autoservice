@@ -59,9 +59,7 @@ public class OrderController {
     @ApiOperation(value = "add new Product to Order by id")
     public OrderResponseDto addProductsToOrder(@PathVariable Long id,
                                                @RequestBody ProductRequestDto requestDto) {
-        Order order = orderService.findById(id);
-        order.getProducts().add(productService.save(productMapper.toModel(requestDto)));
-        orderService.save(order);
+        Order order = orderService.addProductToOrder(id, productMapper.toModel(requestDto));
         return responseMapper.toDto(order);
     }
 
@@ -71,7 +69,7 @@ public class OrderController {
                                    @RequestBody OrderRequestDto requestDto) {
         Order order = requestMapper.toModel(requestDto);
         order.setId(id);
-        return responseMapper.toDto(order);
+        return responseMapper.toDto(orderService.save(order));
     }
 
     @PutMapping("/{id}/update-status")
