@@ -54,8 +54,8 @@ public class Order {
     public enum Status {
         ACCEPTED("accepted"),
         IN_PROCESS("process"),
-        SUCCESS_DONE("completed"),
-        NOT_SUCCESS_DONE("failure"),
+        SUCCESSFUL_DONE("completed"),
+        UNSUCCESSFUL_DONE("failure"),
         PAID("paid");
 
         private final String value;
