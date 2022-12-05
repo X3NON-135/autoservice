@@ -43,6 +43,7 @@ public class OrderMapper implements RequestDtoMapper<OrderRequestDto, Order>,
         order.setProducts(requestDto.getProductsIds().stream()
                 .map(productService::findById)
                 .collect(Collectors.toList()));
+        order.setTotalPrice(requestDto.getTotalPrice());
         return order;
     }
 
