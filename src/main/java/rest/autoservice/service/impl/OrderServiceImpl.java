@@ -33,11 +33,19 @@ public class OrderServiceImpl implements OrderService {
         Order order = findById(id);
         List<Duty> duties = order.getDuties();
         List<Product> products = order.getProducts();
-        double sumForDuties = duties.size() == 1 ? PRICE_FOR_DIAGNOSTICS :
+        double dutiesPrice = duties.size() == 1 ? PRICE_FOR_DIAGNOSTICS :
                 duties.stream().mapToDouble(Duty::getPrice).sum();
-        double sumForProducts = products.stream().mapToDouble(Product::getPrice).sum();
-        order.setTotalPrice((sumForDuties * duties.size())
-                + sumForProducts * products.size());
+        double productsPrice = products.stream().mapToDouble(Product::getPrice).sum();
+        double priceWithoutDiscount = dutiesPrice + productsPrice;
+        double discount = priceWithoutDiscount * ((duties.size() + products.size()) / 100.0);
+        order.setTotalPrice(priceWithoutDiscount - discount);
+        return order;
+    }
+
+    @Override
+    public Order addProductToOrder(Long orderId, Product product) {
+        Order order = findById(orderId);
+        order.setProducts(List.of(product));
         return order;
     }
 }
