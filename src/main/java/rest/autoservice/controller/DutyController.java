@@ -15,22 +15,18 @@ import rest.autoservice.mapper.RequestDtoMapper;
 import rest.autoservice.mapper.ResponseDtoMapper;
 import rest.autoservice.model.Duty;
 import rest.autoservice.service.DutyService;
-import rest.autoservice.service.StatusService;
 
 @RestController
 @RequestMapping("/duties")
 public class DutyController {
     private final DutyService dutyService;
-    private final StatusService statusService;
     private final RequestDtoMapper<DutyRequestDto, Duty> requestMapper;
     private final ResponseDtoMapper<DutyResponseDto, Duty> responseMapper;
 
     public DutyController(DutyService dutyService,
-                          StatusService statusService,
                           RequestDtoMapper<DutyRequestDto, Duty> requestMapper,
                           ResponseDtoMapper<DutyResponseDto, Duty> responseMapper) {
         this.dutyService = dutyService;
-        this.statusService = statusService;
         this.requestMapper = requestMapper;
         this.responseMapper = responseMapper;
     }
@@ -55,9 +51,9 @@ public class DutyController {
     @ApiOperation(value = "update Duty's status by id")
     public DutyResponseDto updateStatus(@PathVariable Long id,
                                         @RequestParam("status") String paymentStatus) {
-        Duty updatedDuty = dutyService.save(
-                statusService.updateDutyStatusById(
-                        id, Duty.PaymentStatus.valueOf(paymentStatus.toUpperCase())));
-        return responseMapper.toDto(updatedDuty);
+        Duty duty = dutyService.findById(id);
+        duty.setId(id);
+        duty.setPaymentStatus(Duty.PaymentStatus.valueOf(paymentStatus.toUpperCase()));
+        return responseMapper.toDto(dutyService.save(duty));
     }
 }

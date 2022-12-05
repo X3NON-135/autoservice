@@ -1,10 +1,8 @@
 package rest.autoservice.controller;
 
-import java.math.BigDecimal;
+import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,25 +18,21 @@ import rest.autoservice.mapper.ResponseDtoMapper;
 import rest.autoservice.mapper.impl.OrderMapper;
 import rest.autoservice.model.Master;
 import rest.autoservice.service.MasterService;
-import rest.autoservice.service.SalaryService;
 
 @RestController
 @RequestMapping("/masters")
 public class MasterController {
     private final MasterService masterService;
     private final OrderMapper orderMapper;
-    private final SalaryService salaryService;
     private final RequestDtoMapper<MasterRequestDto, Master> requestMapper;
     private final ResponseDtoMapper<MasterResponseDto, Master> responseMapper;
 
     public MasterController(MasterService masterService,
                             OrderMapper orderMapper,
-                            SalaryService salaryService,
                             RequestDtoMapper<MasterRequestDto, Master> requestMapper,
                             ResponseDtoMapper<MasterResponseDto, Master> responseMapper) {
         this.masterService = masterService;
         this.orderMapper = orderMapper;
-        this.salaryService = salaryService;
         this.requestMapper = requestMapper;
         this.responseMapper = responseMapper;
     }
@@ -60,17 +54,16 @@ public class MasterController {
     }
 
     @GetMapping("/{id}/orders")
-    @ApiOperation(value = "get Master's orders by id")
+    @ApiOperation(value = "get Master's orders by Master's id")
     public List<OrderResponseDto> getFinishedOrdersById(@PathVariable Long id) {
-        return masterService.getCompletedOrdersById(id).stream()
+        return masterService.getFinishedOrdersById(id).stream()
                 .map(orderMapper::toDto)
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/{masterId}/orders/{orderId}/salary")
     @ApiOperation(value = "calculate Master's salary per order by id")
-    public BigDecimal calculateMastersSalaryByOrderId(@PathVariable Long masterId,
-                                                      @PathVariable Long orderId) {
-        return salaryService.getMasterSalaryByMasterIdAndOrderId(masterId, orderId);
+    public double calculateMastersSalaryById(@PathVariable Long masterId) {
+        return masterService.getSalary(masterId);
     }
 }

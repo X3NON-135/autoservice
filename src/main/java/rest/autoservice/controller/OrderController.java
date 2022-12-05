@@ -1,7 +1,5 @@
 package rest.autoservice.controller;
 
-import java.math.BigDecimal;
-
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,10 +15,11 @@ import rest.autoservice.dto.product.ProductRequestDto;
 import rest.autoservice.mapper.RequestDtoMapper;
 import rest.autoservice.mapper.ResponseDtoMapper;
 import rest.autoservice.mapper.impl.ProductMapper;
+import rest.autoservice.model.AutoOwner;
 import rest.autoservice.model.Order;
+import rest.autoservice.service.AutoOwnerService;
 import rest.autoservice.service.OrderService;
 import rest.autoservice.service.ProductService;
-import rest.autoservice.service.StatusService;
 
 @RestController
 @RequestMapping("/orders")
@@ -28,20 +27,20 @@ public class OrderController {
     private final OrderService orderService;
     private final ProductMapper productMapper;
     private final ProductService productService;
-    private final StatusService statusService;
+    private final AutoOwnerService autoOwnerService;
     private final RequestDtoMapper<OrderRequestDto, Order> requestMapper;
     private final ResponseDtoMapper<OrderResponseDto, Order> responseMapper;
 
     public OrderController(OrderService orderService,
                            ProductMapper productMapper,
                            ProductService productService,
-                           StatusService statusService,
+                           AutoOwnerService autoOwnerService,
                            RequestDtoMapper<OrderRequestDto, Order> requestMapper,
                            ResponseDtoMapper<OrderResponseDto, Order> responseMapper) {
         this.orderService = orderService;
         this.productMapper = productMapper;
         this.productService = productService;
-        this.statusService = statusService;
+        this.autoOwnerService = autoOwnerService;
         this.requestMapper = requestMapper;
         this.responseMapper = responseMapper;
     }
@@ -50,6 +49,8 @@ public class OrderController {
     @ApiOperation(value = "create new Order")
     public OrderResponseDto create(@RequestBody OrderRequestDto requestDto) {
         Order order = orderService.save(requestMapper.toModel(requestDto));
+        AutoOwner autoOwner = autoOwnerService.getAutoOwnerByAutoId(requestDto.getAutoId());
+        autoOwnerService.save(autoOwnerService.addOrder(autoOwner.getId(), order));
         return responseMapper.toDto(order);
     }
 
@@ -75,16 +76,17 @@ public class OrderController {
     @PutMapping("/{id}/update-status")
     @ApiOperation(value = "change Order's status")
     public OrderResponseDto changeStatus(@PathVariable Long id,
-                                         @RequestBody String status) {
-        Order order = statusService.changeOrderStatus(id, Order.Status.valueOf(status));
+                                         @RequestParam String status) {
+        Order order = orderService.findById(id);
+        order.setId(id);
+        order.setStatus(Order.Status.valueOf(status.toUpperCase()));
         return responseMapper.toDto(orderService.save(order));
     }
 
     @GetMapping("/{id}/calculate-price")
     @ApiOperation(value = "calculate total price for Order")
-    public BigDecimal calculatePriceForOrder(@PathVariable Long id,
-                                             @RequestParam Integer discount) {
-        return orderService.calculatePriceForOrder(id, discount);
+    public OrderResponseDto calculatePriceForOrder(@PathVariable Long id) {
+        return responseMapper.toDto(orderService.calculatePriceForOrder(id));
     }
 
 }
