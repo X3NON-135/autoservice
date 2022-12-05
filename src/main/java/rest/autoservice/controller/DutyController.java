@@ -50,7 +50,7 @@ public class DutyController {
     @GetMapping("/{id}/update-status")
     @ApiOperation(value = "update Duty's status by id")
     public DutyResponseDto updateStatus(@PathVariable Long id,
-                                        @RequestParam("status") String paymentStatus) {
+                                        @RequestParam("payment status") String paymentStatus) {
         Duty duty = dutyService.findById(id);
         duty.setId(id);
         duty.setPaymentStatus(Duty.PaymentStatus.valueOf(paymentStatus.toUpperCase()));
