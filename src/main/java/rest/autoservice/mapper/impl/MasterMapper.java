@@ -7,20 +7,25 @@ import rest.autoservice.dto.master.MasterResponseDto;
 import rest.autoservice.mapper.RequestDtoMapper;
 import rest.autoservice.mapper.ResponseDtoMapper;
 import rest.autoservice.model.Master;
+import rest.autoservice.model.Order;
+import rest.autoservice.service.OrderService;
 
 @Component
 public class MasterMapper implements RequestDtoMapper<MasterRequestDto, Master>,
         ResponseDtoMapper<MasterResponseDto, Master> {
-    private final OrderMapper orderMapper;
+    private final OrderService orderService;
 
-    public MasterMapper(OrderMapper orderMapper) {
-        this.orderMapper = orderMapper;
+    public MasterMapper(OrderService orderService) {
+        this.orderService = orderService;
     }
 
     @Override
     public Master toModel(MasterRequestDto requestDto) {
         Master master = new Master();
         master.setFullName(requestDto.getFullName());
+        master.setFinishedOrders(requestDto.getFinishedOrdersIds().stream()
+                .map(orderService::findById)
+                .collect(Collectors.toList()));
         return master;
     }
 
@@ -29,8 +34,8 @@ public class MasterMapper implements RequestDtoMapper<MasterRequestDto, Master>,
         MasterResponseDto responseDto = new MasterResponseDto();
         responseDto.setId(master.getId());
         responseDto.setFullName(master.getFullName());
-        responseDto.setFinishedOrders(master.getFinishedOrders().stream()
-                .map(orderMapper::toDto)
+        responseDto.setFinishedOrdersIds(master.getFinishedOrders().stream()
+                .map(Order::getId)
                 .collect(Collectors.toList()));
         return responseDto;
     }

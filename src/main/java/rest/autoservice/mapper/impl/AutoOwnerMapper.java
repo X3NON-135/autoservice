@@ -6,24 +6,34 @@ import rest.autoservice.dto.owner.AutoOwnerRequestDto;
 import rest.autoservice.dto.owner.AutoOwnerResponseDto;
 import rest.autoservice.mapper.RequestDtoMapper;
 import rest.autoservice.mapper.ResponseDtoMapper;
+import rest.autoservice.model.Auto;
 import rest.autoservice.model.AutoOwner;
+import rest.autoservice.model.Order;
+import rest.autoservice.service.AutoService;
+import rest.autoservice.service.OrderService;
 
 @Component
 public class AutoOwnerMapper implements RequestDtoMapper<AutoOwnerRequestDto, AutoOwner>,
         ResponseDtoMapper<AutoOwnerResponseDto, AutoOwner> {
-    private final AutoMapper autoMapper;
-    private final OrderMapper orderMapper;
+    private final AutoService autoService;
+    private final OrderService orderService;
 
-    public AutoOwnerMapper(AutoMapper autoMapper,
-                           OrderMapper orderMapper) {
-        this.autoMapper = autoMapper;
-        this.orderMapper = orderMapper;
+    public AutoOwnerMapper(AutoService autoService,
+                           OrderService orderService) {
+        this.autoService = autoService;
+        this.orderService = orderService;
     }
 
     @Override
     public AutoOwner toModel(AutoOwnerRequestDto requestDto) {
         AutoOwner autoOwner = new AutoOwner();
         autoOwner.setFullName(requestDto.getFullName());
+        autoOwner.setAutos(requestDto.getAutoIds().stream()
+                .map(autoService::findById)
+                .collect(Collectors.toList()));
+        autoOwner.setOrders(requestDto.getOrderIds().stream()
+                .map(orderService::findById)
+                .collect(Collectors.toList()));
         return autoOwner;
     }
 
@@ -32,11 +42,11 @@ public class AutoOwnerMapper implements RequestDtoMapper<AutoOwnerRequestDto, Au
         AutoOwnerResponseDto responseDto = new AutoOwnerResponseDto();
         responseDto.setId(autoOwner.getId());
         responseDto.setFullName(autoOwner.getFullName());
-        responseDto.setAutos(autoOwner.getAutos().stream()
-                .map(autoMapper::toDto)
+        responseDto.setAutoIds(autoOwner.getAutos().stream()
+                .map(Auto::getId)
                 .collect(Collectors.toList()));
-        responseDto.setOrders(autoOwner.getOrders().stream()
-                .map(orderMapper::toDto)
+        responseDto.setOrderIds(autoOwner.getOrders().stream()
+                .map(Order::getId)
                 .collect(Collectors.toList()));
         return responseDto;
     }
