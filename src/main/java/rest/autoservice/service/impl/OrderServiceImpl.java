@@ -1,24 +1,20 @@
 package rest.autoservice.service.impl;
 
-import java.math.BigDecimal;
+import java.util.List;
 import org.springframework.stereotype.Service;
+import rest.autoservice.model.Duty;
 import rest.autoservice.model.Order;
+import rest.autoservice.model.Product;
 import rest.autoservice.repository.OrderRepository;
 import rest.autoservice.service.OrderService;
-import rest.autoservice.service.PriceService;
 
 @Service
 public class OrderServiceImpl implements OrderService {
+    private static final double PRICE_FOR_DIAGNOSTICS = 500;
     private final OrderRepository orderRepository;
-    private final OrderService orderService;
-    private final PriceService priceService;
 
-    public OrderServiceImpl(OrderRepository orderRepository,
-                            OrderService orderService,
-                            PriceService priceService) {
+    public OrderServiceImpl(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
-        this.orderService = orderService;
-        this.priceService = priceService;
     }
 
     @Override
@@ -33,11 +29,15 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public BigDecimal calculatePriceForOrder(Long id, int discount) {
-        Order order = orderService.findById(id);
-        BigDecimal totalPrice = priceService.getTotalPrice(order, discount);
-        order.setTotalPrice(totalPrice);
-        save(order);
-        return totalPrice;
+    public Order calculatePriceForOrder(Long id) {
+        Order order = findById(id);
+        List<Duty> duties = order.getDuties();
+        List<Product> products = order.getProducts();
+        double sumForDuties = duties.size() == 1 ? PRICE_FOR_DIAGNOSTICS :
+                duties.stream().mapToDouble(Duty::getPrice).sum();
+        double sumForProducts = products.stream().mapToDouble(Product::getPrice).sum();
+        order.setTotalPrice((sumForDuties * duties.size())
+                + sumForProducts * products.size());
+        return order;
     }
 }

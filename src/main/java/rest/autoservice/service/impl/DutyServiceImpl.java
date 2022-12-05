@@ -1,6 +1,5 @@
 package rest.autoservice.service.impl;
 
-import java.util.List;
 import org.springframework.stereotype.Service;
 import rest.autoservice.model.Duty;
 import rest.autoservice.repository.DutyRepository;
@@ -23,10 +22,5 @@ public class DutyServiceImpl implements DutyService {
     public Duty findById(Long id) {
         return dutyRepository.findById(id).orElseThrow(() ->
                 new RuntimeException("Can't find duty by id=" + id));
-    }
-
-    @Override
-    public List<Duty> getDutyByMasterIdAndOrOrderId(Long masterId, Long orderId) {
-        return dutyRepository.getDutyByMasterIdAndOrOrderId(masterId, orderId);
     }
 }

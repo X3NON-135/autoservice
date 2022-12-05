@@ -1,6 +1,5 @@
 package rest.autoservice.service;
 
-import java.math.BigDecimal;
 import rest.autoservice.model.Order;
 
 public interface OrderService {
@@ -8,5 +7,5 @@ public interface OrderService {
 
     Order findById(Long id);
 
-    BigDecimal calculatePriceForOrder(Long id, int discount);
+    Order calculatePriceForOrder(Long id);
 }

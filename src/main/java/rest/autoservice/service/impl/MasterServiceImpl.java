@@ -9,6 +9,7 @@ import rest.autoservice.service.MasterService;
 
 @Service
 public class MasterServiceImpl implements MasterService {
+    private static final double PERCENT_FROM_DUTY_PRICE = 0.4;
     private final MasterRepository masterRepository;
 
     public MasterServiceImpl(MasterRepository masterRepository) {
@@ -32,14 +33,16 @@ public class MasterServiceImpl implements MasterService {
     }
 
     @Override
-    public List<Master> getAllMastersByOrderId(Long id) {
-        return masterRepository.getAllMastersByOrderId(id);
-    }
-
-    @Override
-    public Master addFinishedOrder(Long id, Order order) {
+    public double getSalary(Long id) {
         Master master = findById(id);
-        getFinishedOrdersById(id).add(order);
-        return master;
+        List<Order> finishedOrders = master.getFinishedOrders();
+        double salary = 0.0;
+        for (int i = 0; i < finishedOrders.size(); i++) {
+            if (finishedOrders.get(i).getStatus() != Order.Status.PAID) {
+                salary += finishedOrders.get(i).getTotalPrice();
+                finishedOrders.get(i).setStatus(Order.Status.PAID);
+            }
+        }
+        return salary * PERCENT_FROM_DUTY_PRICE;
     }
 }
