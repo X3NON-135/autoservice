@@ -50,7 +50,7 @@ public class MasterController {
                                     @RequestBody MasterRequestDto requestDto) {
         Master master = requestMapper.toModel(requestDto);
         master.setId(id);
-        return responseMapper.toDto(master);
+        return responseMapper.toDto(masterService.save(master));
     }
 
     @GetMapping("/{id}/orders")
@@ -61,9 +61,9 @@ public class MasterController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/{masterId}/orders/{orderId}/salary")
+    @GetMapping("/{id}/salary")
     @ApiOperation(value = "calculate Master's salary per order by id")
-    public double calculateMastersSalaryById(@PathVariable Long masterId) {
-        return masterService.getSalary(masterId);
+    public double calculateMastersSalaryById(@PathVariable Long id) {
+        return masterService.getSalary(id);
     }
 }

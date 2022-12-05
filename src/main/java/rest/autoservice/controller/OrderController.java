@@ -1,6 +1,7 @@
 package rest.autoservice.controller;
 
 import io.swagger.annotations.ApiOperation;
+import java.time.LocalDateTime;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -80,6 +81,7 @@ public class OrderController {
         Order order = orderService.findById(id);
         order.setId(id);
         order.setStatus(Order.Status.valueOf(status.toUpperCase()));
+        order.setFinishedDate(LocalDateTime.now());
         return responseMapper.toDto(orderService.save(order));
     }
 
