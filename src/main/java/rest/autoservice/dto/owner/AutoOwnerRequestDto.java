@@ -1,5 +1,6 @@
 package rest.autoservice.dto.owner;
 
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,4 +12,6 @@ import lombok.ToString;
 @ToString
 public class AutoOwnerRequestDto {
     private String fullName;
+    private List<Long> autoIds;
+    private List<Long> orderIds;
 }

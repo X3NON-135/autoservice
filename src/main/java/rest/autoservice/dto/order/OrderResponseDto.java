@@ -1,14 +1,11 @@
 package rest.autoservice.dto.order;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import rest.autoservice.dto.duties.DutyResponseDto;
-import rest.autoservice.dto.product.ProductResponseDto;
 
 @Getter
 @Setter
@@ -19,9 +16,9 @@ public class OrderResponseDto {
     private Long autoId;
     private String description;
     private LocalDateTime acceptanceDate;
-    private LocalDateTime completeDate;
-    private List<DutyResponseDto> duties;
-    private List<ProductResponseDto> products;
+    private LocalDateTime finishedDate;
+    private List<Long> dutyIds;
+    private List<Long> productIds;
     private String status;
-    private BigDecimal totalPrice;
+    private double totalPrice;
 }
