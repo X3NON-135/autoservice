@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import rest.autoservice.model.Order;
 
 @Getter
 @Setter
@@ -19,6 +20,6 @@ public class OrderResponseDto {
     private LocalDateTime finishedDate;
     private List<Long> dutyIds;
     private List<Long> productIds;
-    private String status;
+    private Order.Status status;
     private double totalPrice;
 }
