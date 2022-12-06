@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import rest.autoservice.model.Order;
 
 @Getter
 @Setter
@@ -23,7 +22,7 @@ public class OrderRequestDto {
     @JsonFormat(pattern = "dd.MM.yyyy HH:mm")
     @Schema(description = "date format: dd.MM.yyyy HH:mm")
     private LocalDateTime completeDate;
-    private Order.Status status;
+    private String status;
     private double totalPrice;
     private List<Long> dutiesIds;
     private List<Long> productsIds;
