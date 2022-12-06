@@ -32,6 +32,7 @@ spring.datasource.password=PASSWORD
 spring.jpa.properties.hibernate.dialect=DIALECT
 ```
 3) Start maven compiling code and packaging it to jar - run **mvn clean package**
+4) Run project
 # How to send HTTP methods
 * Open web-browser and write down ```http://localhost:8080/swagger-ui/#``` to open Swagger
 # General overview
