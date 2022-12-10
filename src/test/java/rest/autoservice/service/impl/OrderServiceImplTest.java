@@ -55,7 +55,7 @@ class OrderServiceImplTest {
     }
 
     @Test
-    void calculatePriceForOrder() {
+    void calculatePriceForOrder_Ok() {
         order.getProducts().add(product);
         Mockito.when(orderRepository.findById(1L)).thenReturn(Optional.of(order));
         double actualPrice = orderService.calculatePriceForOrder(1L).getTotalPrice();
@@ -65,7 +65,7 @@ class OrderServiceImplTest {
     }
 
     @Test
-    void addProductToOrder() {
+    void addProductToOrder_NotNull_Ok() {
         order.getProducts().add(product);
         Mockito.when(orderRepository.findById(1L)).thenReturn(Optional.of(order));
         Product newProduct = new Product();
