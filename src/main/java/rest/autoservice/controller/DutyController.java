@@ -44,7 +44,7 @@ public class DutyController {
                                   @RequestBody DutyRequestDto requestDto) {
         Duty duty = requestMapper.toModel(requestDto);
         duty.setId(id);
-        return responseMapper.toDto(duty);
+        return responseMapper.toDto(dutyService.save(duty));
     }
 
     @GetMapping("/{id}/update-status")
