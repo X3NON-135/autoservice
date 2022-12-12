@@ -76,11 +76,8 @@ public class OrderController {
     @ApiOperation(value = "change Order's status")
     public OrderResponseDto changeStatus(@PathVariable Long id,
                                          @RequestParam String status) {
-        Order order = orderService.findById(id);
-        order.setId(id);
-        order.setStatus(Order.Status.valueOf(status.toUpperCase()));
-        order.setFinishedDate(LocalDateTime.now());
-        return responseMapper.toDto(orderService.save(order));
+        Order updateOrder = orderService.updateStatus(id, status);
+        return responseMapper.toDto(orderService.save(updateOrder));
     }
 
     @GetMapping("/{id}/calculate-price")
