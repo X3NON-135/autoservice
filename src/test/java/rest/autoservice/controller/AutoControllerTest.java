@@ -65,7 +65,7 @@ class AutoControllerTest {
                 .body("model", Matchers.equalTo("Type 57SC"))
                 .body("number", Matchers.equalTo("666Adams666"))
                 .body("manufactureDate", Matchers.equalTo("1940-06-06"))
-                .body("ownerId", Matchers.equalTo(null));
+                .body("ownerId", Matchers.equalTo(1));
     }
 
     @Test
