@@ -1,5 +1,6 @@
 package rest.autoservice.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import rest.autoservice.model.Duty;
@@ -26,6 +27,18 @@ public class OrderServiceImpl implements OrderService {
     public Order findById(Long id) {
         return orderRepository.findById(id).orElseThrow(() ->
                 new RuntimeException("Can't find order by id=" + id));
+    }
+
+    @Override
+    public Order updateStatus(Long id, String status) {
+        Order order = findById(id);
+        order.setId(id);
+        order.setStatus(Order.Status.valueOf(status.toUpperCase()));
+        if (status.toUpperCase().equals(Order.Status.SUCCESSFUL_DONE.toString())
+                || status.toUpperCase().equals(Order.Status.UNSUCCESSFUL_DONE.toString())) {
+            order.setFinishedDate(LocalDateTime.now());
+        }
+        return order;
     }
 
     @Override

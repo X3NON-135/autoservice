@@ -6,13 +6,13 @@
 
 # Functionality
 * App simplify job for workers to do casual paper work, such as:
-    * Register new employed Masters
-    * Calculate Master's salary
-    * Create new Order for client
-    * Calculate Order's total price
-    * Save client's autos and his orders
-    * Add new products
-    * Add new services
+* Register new employed Masters
+* Calculate Master's salary
+* Create new Order for client
+* Calculate Order's total price
+* Save client's autos and his orders
+* Add new products
+* Add new services
 # App Structure
 Based on N-Tier architecture:
 1. Layer of Controllers.
@@ -23,6 +23,9 @@ Based on N-Tier architecture:
 * Tomcat 9.0.65
 * Maven
 * Spring Boot 2.7.5
+* Docker
+* JUnit 5 
+* Mockito
 # Quick start
 1) Clone this repository
 2) Set up necessary fields in ```application.properties```
@@ -34,6 +37,9 @@ spring.jpa.properties.hibernate.dialect=DIALECT
 ```
 3) Start maven compiling code and packaging it to jar - run **mvn clean package**
 4) Run project
+___
+Besides, You can **pull image from Docker Hub** and start it with command. <br>
+```docker pull octopy/autoservice``` -> ```docker-compose up```
 # How to send HTTP methods
 * Open web-browser and write down ```http://localhost:8080/swagger-ui/#``` to open Swagger
 # General overview

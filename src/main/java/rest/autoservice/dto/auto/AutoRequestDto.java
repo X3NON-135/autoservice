@@ -3,6 +3,7 @@ package rest.autoservice.dto.auto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDate;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,6 +11,7 @@ import lombok.ToString;
 
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
 @ToString
 public class AutoRequestDto {

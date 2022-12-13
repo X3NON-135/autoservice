@@ -47,6 +47,6 @@ public class AutoController {
                                   @RequestBody AutoRequestDto requestDto) {
         Auto auto = requestMapper.toModel(requestDto);
         auto.setId(id);
-        return responseMapper.toDto(auto);
+        return responseMapper.toDto(autoService.save(auto));
     }
 }

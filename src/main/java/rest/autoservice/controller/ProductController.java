@@ -42,6 +42,6 @@ public class ProductController {
                                      @RequestBody ProductRequestDto requestDto) {
         Product product = requestMapper.toModel(requestDto);
         product.setId(id);
-        return responseMapper.toDto(product);
+        return responseMapper.toDto(productService.save(product));
     }
 }
