@@ -6,13 +6,13 @@
 
 # Functionality
 * App simplify job for workers to do casual paper work, such as:
-  * Register new employed Masters
-  * Calculate Master's salary
-  * Create new Order for client
-  * Calculate Order's total price
-  * Save client's autos and his orders
-  * Add new products
-  * Add new services
+* Register new employed Masters
+* Calculate Master's salary
+* Create new Order for client
+* Calculate Order's total price
+* Save client's autos and his orders
+* Add new products
+* Add new services
 # App Structure
 Based on N-Tier architecture:
 1. Layer of Controllers.
