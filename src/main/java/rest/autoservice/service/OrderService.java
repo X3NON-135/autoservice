@@ -8,6 +8,8 @@ public interface OrderService {
 
     Order findById(Long id);
 
+    Order updateStatus(Long id, String status);
+
     Order calculatePriceForOrder(Long id);
 
     Order addProductToOrder(Long orderId, Product product);
