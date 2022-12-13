@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDateTime;
 import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +23,7 @@ public class OrderRequestDto {
     private LocalDateTime acceptanceDate;
     @JsonFormat(pattern = "dd.MM.yyyy HH:mm")
     @Schema(description = "date format: dd.MM.yyyy HH:mm")
-    private LocalDateTime finishedDate;
+    private LocalDateTime completeDate;
     private String status;
     private double totalPrice;
     private List<Long> dutiesIds;

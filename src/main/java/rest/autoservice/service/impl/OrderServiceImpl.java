@@ -2,8 +2,6 @@ package rest.autoservice.service.impl;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Locale;
-
 import org.springframework.stereotype.Service;
 import rest.autoservice.model.Duty;
 import rest.autoservice.model.Order;
