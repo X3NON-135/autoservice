@@ -35,7 +35,7 @@ public class OrderMapper implements RequestDtoMapper<OrderRequestDto, Order>,
         order.setAuto(autoService.findById(requestDto.getAutoId()));
         order.setDescription(requestDto.getDescription());
         order.setAcceptanceDate(requestDto.getAcceptanceDate());
-        order.setFinishedDate(requestDto.getCompleteDate());
+        order.setFinishedDate(requestDto.getFinishedDate());
         order.setStatus(Order.Status.valueOf(requestDto.getStatus().toUpperCase()));
         order.setDuties(requestDto.getDutiesIds().stream()
                 .map(dutyService::findById)
