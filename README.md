@@ -24,6 +24,8 @@ Based on N-Tier architecture:
 * Maven
 * Spring Boot 2.7.5
 * Docker
+* JUnit 5 
+* Mockito
 # Quick start
 1) Clone this repository
 2) Set up necessary fields in ```application.properties```
