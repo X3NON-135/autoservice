@@ -1,5 +1,6 @@
 package rest.autoservice.dto.order;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.Getter;
@@ -21,5 +22,5 @@ public class OrderResponseDto {
     private List<Long> dutyIds;
     private List<Long> productIds;
     private Order.Status status;
-    private double totalPrice;
+    private BigDecimal totalPrice;
 }

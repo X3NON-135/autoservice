@@ -1,5 +1,6 @@
 package rest.autoservice.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +51,7 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private Status status;
     @Column(name = "total_price")
-    private double totalPrice;
+    private BigDecimal totalPrice;
 
     public enum Status {
         ACCEPTED("accepted"),

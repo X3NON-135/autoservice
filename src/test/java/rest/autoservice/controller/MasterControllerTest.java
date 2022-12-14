@@ -2,9 +2,9 @@ package rest.autoservice.controller;
 
 import io.restassured.http.ContentType;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
-
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,6 +27,7 @@ import rest.autoservice.service.MasterService;
 class MasterControllerTest {
     @MockBean
     private MasterService masterService;
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private MockMvc mockMvc;
     private Master master;
@@ -60,16 +61,16 @@ class MasterControllerTest {
     void calculateMastersSalaryById() {
         Order order = new Order();
         order.setId(1L);
-        order.setTotalPrice(120);
+        order.setTotalPrice(BigDecimal.valueOf(120));
         order.setStatus(Order.Status.PAID);
         master.setFinishedOrders(List.of(order));
-        Mockito.when(masterService.getSalary(1L)).thenReturn(Double.valueOf(48));
+        Mockito.when(masterService.getSalary(1L)).thenReturn(BigDecimal.valueOf(48));
         RestAssuredMockMvc.given()
                 .queryParam("id", 1)
                 .when()
                 .get("/masters/{id}/salary", 1)
                 .then()
                 .statusCode(200)
-                .body(Matchers.equalTo("48.0"));
+                .body(Matchers.equalTo("48"));
     }
 }

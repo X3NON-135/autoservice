@@ -1,5 +1,6 @@
 package rest.autoservice.service.impl;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,6 @@ import rest.autoservice.repository.MasterRepository;
 class MasterServiceImplTest {
     private static Order order;
     private static Master master;
-    private static final double PERCENT_FROM_DUTY_PRICE = 0.4;
     @InjectMocks
     private MasterServiceImpl masterService;
     @Mock
@@ -38,7 +38,7 @@ class MasterServiceImplTest {
         order.setStatus(Order.Status.ACCEPTED);
         order.setDuties(new ArrayList<>());
         order.setProducts(new ArrayList<>());
-        order.setTotalPrice(230);
+        order.setTotalPrice(BigDecimal.valueOf(230));
 
         master = new Master();
         master.setId(1L);
@@ -50,8 +50,7 @@ class MasterServiceImplTest {
     void getSalary_ByFinishedOrder_Ok() {
         Mockito.when(masterRepository.findById(1L)).thenReturn(Optional.of(master));
         List<Order> actual = masterService.getFinishedOrdersById(1L);
-        List<Order> expected = master.getFinishedOrders();
-        double expectedTotalPrice = expected.get(0).getTotalPrice() * PERCENT_FROM_DUTY_PRICE;
+        BigDecimal expectedTotalPrice = BigDecimal.valueOf(92.0);
         Assertions.assertNotNull(actual);
         Assertions.assertEquals(expectedTotalPrice, masterService.getSalary(1L));
         Assertions.assertEquals(Order.Status.PAID, actual.get(0).getStatus());

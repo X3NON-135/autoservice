@@ -2,6 +2,7 @@ package rest.autoservice.controller;
 
 import io.restassured.http.ContentType;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -96,7 +97,7 @@ class AutoOwnerControllerTest {
                 LocalDateTime.of(2022, 2, 1, 12, 0),
                 LocalDateTime.of(2022, 2, 1, 13, 0),
                 List.of(new Duty()),
-                List.of(new Product()), Order.Status.ACCEPTED, 100)));
+                List.of(new Product()), Order.Status.ACCEPTED, BigDecimal.valueOf(100))));
         Mockito.when(autoOwnerService.findById(1L)).thenReturn(autoOwner);
         RestAssuredMockMvc.given()
                 .when()

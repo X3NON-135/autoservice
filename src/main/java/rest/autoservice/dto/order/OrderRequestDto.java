@@ -2,6 +2,7 @@ package rest.autoservice.dto.order;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -25,7 +26,7 @@ public class OrderRequestDto {
     @Schema(description = "date format: dd.MM.yyyy HH:mm")
     private LocalDateTime completeDate;
     private String status;
-    private double totalPrice;
+    private BigDecimal totalPrice;
     private List<Long> dutiesIds;
     private List<Long> productsIds;
 }
