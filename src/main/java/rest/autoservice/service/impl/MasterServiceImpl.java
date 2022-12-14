@@ -1,5 +1,6 @@
 package rest.autoservice.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import rest.autoservice.model.Master;
@@ -9,7 +10,7 @@ import rest.autoservice.service.MasterService;
 
 @Service
 public class MasterServiceImpl implements MasterService {
-    private static final double PERCENT_FROM_DUTY_PRICE = 0.4;
+    private static final BigDecimal PERCENT_FROM_DUTY_PRICE = BigDecimal.valueOf(0.4);
     private final MasterRepository masterRepository;
 
     public MasterServiceImpl(MasterRepository masterRepository) {
@@ -33,16 +34,16 @@ public class MasterServiceImpl implements MasterService {
     }
 
     @Override
-    public double getSalary(Long id) {
+    public BigDecimal getSalary(Long id) {
         Master master = findById(id);
         List<Order> finishedOrders = master.getFinishedOrders();
-        double salary = 0.0;
+        BigDecimal salary = BigDecimal.valueOf(0);
         for (int i = 0; i < finishedOrders.size(); i++) {
             if (finishedOrders.get(i).getStatus() != Order.Status.PAID) {
-                salary += finishedOrders.get(i).getTotalPrice();
+                salary = salary.add(finishedOrders.get(i).getTotalPrice());
                 finishedOrders.get(i).setStatus(Order.Status.PAID);
             }
         }
-        return salary * PERCENT_FROM_DUTY_PRICE;
+        return salary.multiply(PERCENT_FROM_DUTY_PRICE);
     }
 }

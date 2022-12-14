@@ -1,5 +1,7 @@
 package rest.autoservice.service.impl;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -11,7 +13,7 @@ import rest.autoservice.service.OrderService;
 
 @Service
 public class OrderServiceImpl implements OrderService {
-    private static final double PRICE_FOR_DIAGNOSTICS = 500;
+    private static final BigDecimal PRICE_FOR_DIAGNOSTICS = BigDecimal.valueOf(500);
     private final OrderRepository orderRepository;
 
     public OrderServiceImpl(OrderRepository orderRepository) {
@@ -46,12 +48,15 @@ public class OrderServiceImpl implements OrderService {
         Order order = findById(id);
         List<Duty> duties = order.getDuties();
         List<Product> products = order.getProducts();
-        double dutiesPrice = duties.size() == 1 ? PRICE_FOR_DIAGNOSTICS :
-                duties.stream().mapToDouble(Duty::getPrice).sum();
-        double productsPrice = products.stream().mapToDouble(Product::getPrice).sum();
-        double priceWithoutDiscount = dutiesPrice + productsPrice;
-        double discount = priceWithoutDiscount * ((duties.size() + products.size()) / 100.0);
-        order.setTotalPrice(priceWithoutDiscount - discount);
+        BigDecimal dutiesPrice = duties.size() == 1 ? PRICE_FOR_DIAGNOSTICS :
+                duties.stream().map(Duty::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal productsPrice = products.stream().map(Product::getPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal priceWithoutDiscount = dutiesPrice.add(productsPrice);
+        BigDecimal discount = priceWithoutDiscount.multiply(
+                BigDecimal.valueOf((duties.size() + products.size()) / 100.0))
+                .round(new MathContext(2));
+        order.setTotalPrice(priceWithoutDiscount.subtract(discount));
         return order;
     }
 

@@ -1,5 +1,6 @@
 package rest.autoservice.model;
 
+import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -28,7 +29,7 @@ public class Duty {
     private Order order;
     @ManyToOne
     private Master master;
-    private double price;
+    private BigDecimal price;
     @Enumerated(EnumType.STRING)
     @Column(name = "payment_status")
     private PaymentStatus paymentStatus;

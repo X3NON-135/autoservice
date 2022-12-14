@@ -1,5 +1,6 @@
 package rest.autoservice.dto.product;
 
+import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,5 +14,5 @@ import lombok.ToString;
 @ToString
 public class ProductRequestDto {
     private String title;
-    private double price;
+    private BigDecimal price;
 }

@@ -1,6 +1,7 @@
 package rest.autoservice.controller;
 
 import io.swagger.annotations.ApiOperation;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -63,7 +64,7 @@ public class MasterController {
 
     @GetMapping("/{id}/salary")
     @ApiOperation(value = "calculate Master's salary per order by id")
-    public double calculateMastersSalaryById(@PathVariable Long id) {
+    public BigDecimal calculateMastersSalaryById(@PathVariable Long id) {
         return masterService.getSalary(id);
     }
 }

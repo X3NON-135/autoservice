@@ -1,5 +1,6 @@
 package rest.autoservice.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import rest.autoservice.model.Master;
 import rest.autoservice.model.Order;
@@ -11,5 +12,5 @@ public interface MasterService {
 
     List<Order> getFinishedOrdersById(Long id);
 
-    double getSalary(Long id);
+    BigDecimal getSalary(Long id);
 }
