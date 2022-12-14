@@ -1,5 +1,6 @@
 package rest.autoservice.service.impl;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -63,7 +64,7 @@ class AutoOwnerServiceImplTest {
         order.setStatus(Order.Status.ACCEPTED);
         order.setDuties(new ArrayList<>());
         order.setProducts(new ArrayList<>());
-        order.setTotalPrice(230);
+        order.setTotalPrice(BigDecimal.valueOf(230));
         AutoOwner actual = autoOwnerService.addOrder(1L, order);
         expected.getOrders().add(order);
         Assertions.assertNotNull(actual);
