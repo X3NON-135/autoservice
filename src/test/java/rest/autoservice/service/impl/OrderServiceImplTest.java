@@ -1,10 +1,12 @@
 package rest.autoservice.service.impl;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,18 +31,18 @@ class OrderServiceImplTest {
     @Mock
     private OrderRepository orderRepository;
 
-    @BeforeEach
-    void setUp() {
+    @BeforeAll
+    static void beforeAll() {
         duty = new Duty();
         duty.setMaster(new Master());
         duty.setOrder(order);
         duty.setTypeOfDuty(Duty.TypeOfDuty.DIAGNOSTICS);
-        duty.setPrice(500);
+        duty.setPrice(BigDecimal.valueOf(500));
 
         product = new Product();
         product.setId(1L);
         product.setTitle("car oil");
-        product.setPrice(200);
+        product.setPrice(BigDecimal.valueOf(200));
 
         order = new Order();
         order.setId(1L);
@@ -51,16 +53,16 @@ class OrderServiceImplTest {
         order.setStatus(Order.Status.ACCEPTED);
         order.setDuties(List.of(duty));
         order.setProducts(new ArrayList<>());
-        order.setTotalPrice(0);
+        order.setTotalPrice(BigDecimal.valueOf(0));
     }
 
     @Test
     void calculatePriceForOrder_Ok() {
         order.getProducts().add(product);
         Mockito.when(orderRepository.findById(1L)).thenReturn(Optional.of(order));
-        double actualPrice = orderService.calculatePriceForOrder(1L).getTotalPrice();
+        BigDecimal actualPrice = orderService.calculatePriceForOrder(1L).getTotalPrice();
         // expected price = (500 + 200) - [(500 + 200) * 0.02] = 686
-        double expectedPrice = 686;
+        BigDecimal expectedPrice = BigDecimal.valueOf(686);
         Assertions.assertEquals(expectedPrice, actualPrice);
     }
 
@@ -71,9 +73,9 @@ class OrderServiceImplTest {
         Product newProduct = new Product();
         newProduct.setId(2L);
         newProduct.setTitle("tiring belt");
-        newProduct.setPrice(353);
+        newProduct.setPrice(BigDecimal.valueOf(353));
         Order actual = orderService.addProductToOrder(1L, newProduct);
         Assertions.assertNotNull(actual.getProducts().get(1));
-        Assertions.assertEquals(2, actual.getProducts().size());
+        Assertions.assertEquals(order.getProducts().size(), actual.getProducts().size());
     }
 }
