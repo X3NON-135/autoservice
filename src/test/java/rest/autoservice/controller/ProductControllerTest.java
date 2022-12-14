@@ -2,6 +2,7 @@ package rest.autoservice.controller;
 
 import io.restassured.http.ContentType;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
+import java.math.BigDecimal;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,6 +24,7 @@ import rest.autoservice.service.ProductService;
 class ProductControllerTest {
     @MockBean
     private ProductService productService;
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private MockMvc mockMvc;
     private Product product;
@@ -34,7 +36,7 @@ class ProductControllerTest {
         product = new Product();
         product.setId(1L);
         product.setTitle("Car oil");
-        product.setPrice(50);
+        product.setPrice(BigDecimal.valueOf(50));
     }
 
     @Test
@@ -49,7 +51,7 @@ class ProductControllerTest {
                 .statusCode(200)
                 .body("id", Matchers.equalTo(1))
                 .body("title", Matchers.equalTo("Car oil"))
-                .body("price", Matchers.equalTo(50.0F));
+                .body("price", Matchers.equalTo(50));
     }
 
     @Test
@@ -57,7 +59,7 @@ class ProductControllerTest {
         Product updatedProduct = new Product();
         updatedProduct.setId(1L);
         updatedProduct.setTitle("Timing belt");
-        updatedProduct.setPrice(500);
+        updatedProduct.setPrice(BigDecimal.valueOf(500));
         Mockito.when(productService.save(Mockito.any(Product.class))).thenReturn(updatedProduct);
         RestAssuredMockMvc.given()
                 .queryParam("id", 1)
@@ -69,6 +71,6 @@ class ProductControllerTest {
                 .statusCode(200)
                 .body("id", Matchers.equalTo(1))
                 .body("title", Matchers.equalTo("Timing belt"))
-                .body("price", Matchers.equalTo(500.0F));
+                .body("price", Matchers.equalTo(500));
     }
 }

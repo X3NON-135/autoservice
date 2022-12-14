@@ -2,6 +2,7 @@ package rest.autoservice.controller;
 
 import io.restassured.http.ContentType;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
+import java.math.BigDecimal;
 import java.util.Collections;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,10 +40,11 @@ class DutyControllerTest {
         duty = new Duty();
         duty.setId(1L);
         duty.setMaster(new Master(1L, "Tyler Gustin", Collections.emptyList()));
-        duty.setOrder(new Order(1L, new Auto(), "diagnostics", null, null, null, null, null, 100));
+        duty.setOrder(new Order(1L, new Auto(), "diagnostics",
+                null, null, null, null, null, BigDecimal.valueOf(100)));
         duty.setTypeOfDuty(Duty.TypeOfDuty.DIAGNOSTICS);
         duty.setPaymentStatus(Duty.PaymentStatus.UNPAID);
-        duty.setPrice(500);
+        duty.setPrice(BigDecimal.valueOf(500));
     }
 
     @Test
@@ -68,10 +70,11 @@ class DutyControllerTest {
         Duty updatedDuty = new Duty();
         updatedDuty.setId(1L);
         updatedDuty.setMaster(new Master(2L, "Gus Ostin", Collections.emptyList()));
-        updatedDuty.setOrder(new Order(2L, new Auto(), "change oil", null, null, null, null, null, 100));
+        updatedDuty.setOrder(new Order(2L, new Auto(), "change oil",
+                null, null, null, null, null, BigDecimal.valueOf(100)));
         updatedDuty.setTypeOfDuty(Duty.TypeOfDuty.CHANGE_OIL);
         updatedDuty.setPaymentStatus(Duty.PaymentStatus.UNPAID);
-        updatedDuty.setPrice(500);
+        updatedDuty.setPrice(BigDecimal.valueOf(500));
         Mockito.when(dutyService.save(Mockito.any(Duty.class))).thenReturn(updatedDuty);
         RestAssuredMockMvc.given()
                 .queryParam("id", 1)

@@ -2,6 +2,7 @@ package rest.autoservice.controller;
 
 import io.restassured.http.ContentType;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import org.hamcrest.Matchers;
@@ -26,6 +27,7 @@ import rest.autoservice.service.OrderService;
 class OrderControllerTest {
     @MockBean
     private OrderService orderService;
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private MockMvc mockMvc;
     private Order order;
@@ -43,7 +45,7 @@ class OrderControllerTest {
         order.setStatus(Order.Status.ACCEPTED);
         order.setDuties(Collections.emptyList());
         order.setProducts(Collections.emptyList());
-        order.setTotalPrice(404);
+        order.setTotalPrice(BigDecimal.valueOf(404));
     }
 
     @Test
@@ -64,7 +66,7 @@ class OrderControllerTest {
                 .body("acceptanceDate", Matchers.equalTo("2022-12-13T11:20:00"))
                 .body("finishedDate", Matchers.equalTo("2022-12-13T14:20:00"))
                 .body("status", Matchers.equalTo("ACCEPTED"))
-                .body("totalPrice", Matchers.equalTo(404.0F));
+                .body("totalPrice", Matchers.equalTo(404));
     }
 
     @Test
@@ -77,6 +79,6 @@ class OrderControllerTest {
                 .get("/orders/{id}/calculate-price", 1)
                 .then()
                 .statusCode(200)
-                .body("totalPrice", Matchers.equalTo(404.0F));
+                .body("totalPrice", Matchers.equalTo(404));
     }
 }
