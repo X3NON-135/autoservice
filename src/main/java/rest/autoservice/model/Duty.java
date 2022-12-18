@@ -33,9 +33,8 @@ public class Duty {
     @Enumerated(EnumType.STRING)
     @Column(name = "payment_status")
     private PaymentStatus paymentStatus;
-    @Enumerated(EnumType.STRING)
     @Column(name = "type_of_duty")
-    private TypeOfDuty typeOfDuty;
+    private String typeOfDuty;
 
     public enum PaymentStatus {
         PAID("paid"),
@@ -44,20 +43,6 @@ public class Duty {
         private final String value;
 
         PaymentStatus(String value) {
-            this.value = value;
-        }
-    }
-
-    public enum TypeOfDuty {
-        DIAGNOSTICS("diagnostics"),
-        CHANGE_OIL("change oil in gearbox"),
-        CHANGE_GRM("change belt of timing (GRM)"),
-        AUTO_OVERHAUL("car overhaul"),
-        REPAIR_ENGINE("repair engine");
-
-        private String value;
-
-        TypeOfDuty(String value) {
             this.value = value;
         }
     }

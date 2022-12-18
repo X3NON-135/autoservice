@@ -17,7 +17,7 @@ import rest.autoservice.model.AutoOwner;
 @Testcontainers
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class AutoOwnerRepositoryTest {
-    /*NOT WORKING*/
+    /*TO START THIS TEST MAKE SURE THAT ***DOCKER DESKTOP*** IS LAUNCHED*/
     @Container
     static PostgreSQLContainer<?> database = new PostgreSQLContainer<>("postgres:15")
             .withDatabaseName("springboot")
@@ -25,10 +25,10 @@ class AutoOwnerRepositoryTest {
             .withUsername("springboot");
 
     @DynamicPropertySource
-    static void setDataSourceProperties(DynamicPropertyRegistry propertyRegistry) {
+    static void setDatasourceProperties(DynamicPropertyRegistry propertyRegistry) {
         propertyRegistry.add("spring.datasource.url", database::getJdbcUrl);
-        propertyRegistry.add("spring.datasource.username", database::getUsername);
         propertyRegistry.add("spring.datasource.password", database::getPassword);
+        propertyRegistry.add("spring.datasource.username", database::getUsername);
     }
 
     @Autowired

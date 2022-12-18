@@ -57,7 +57,7 @@ public class MasterController {
     @GetMapping("/{id}/orders")
     @ApiOperation(value = "get Master's orders by Master's id")
     public List<OrderResponseDto> getFinishedOrdersById(@PathVariable Long id) {
-        return masterService.getFinishedOrdersById(id).stream()
+        return masterService.getFinishedOrdersByMasterId(id).stream()
                 .map(orderMapper::toDto)
                 .collect(Collectors.toList());
     }

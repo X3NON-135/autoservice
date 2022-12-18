@@ -92,13 +92,13 @@ class AutoOwnerControllerTest {
 
     @Test
     void shouldGetAutoOwnersOrders() {
-        autoOwner.setOrders(List.of(new Order(
-                66L, new Auto(), "test",
+        Order newOrder = new Order(66L, new Auto(), "test",
                 LocalDateTime.of(2022, 2, 1, 12, 0),
                 LocalDateTime.of(2022, 2, 1, 13, 0),
                 List.of(new Duty()),
-                List.of(new Product()), Order.Status.ACCEPTED, BigDecimal.valueOf(100))));
-        Mockito.when(autoOwnerService.findById(1L)).thenReturn(autoOwner);
+                List.of(new Product()), Order.Status.ACCEPTED, BigDecimal.valueOf(100));
+        autoOwner.setOrders(List.of(newOrder));
+        Mockito.when(autoOwnerService.getOrdersByAutoOwnerId(1L)).thenReturn(List.of(newOrder));
         RestAssuredMockMvc.given()
                 .when()
                 .get("/owners/{id}/orders", 1)

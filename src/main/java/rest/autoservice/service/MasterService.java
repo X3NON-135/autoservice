@@ -10,7 +10,7 @@ public interface MasterService {
 
     Master findById(Long id);
 
-    List<Order> getFinishedOrdersById(Long id);
+    List<Order> getFinishedOrdersByMasterId(Long id);
 
     BigDecimal getSalary(Long id);
 }

@@ -42,7 +42,7 @@ class DutyControllerTest {
         duty.setMaster(new Master(1L, "Tyler Gustin", Collections.emptyList()));
         duty.setOrder(new Order(1L, new Auto(), "diagnostics",
                 null, null, null, null, null, BigDecimal.valueOf(100)));
-        duty.setTypeOfDuty(Duty.TypeOfDuty.DIAGNOSTICS);
+        duty.setTypeOfDuty("diagnostics");
         duty.setPaymentStatus(Duty.PaymentStatus.UNPAID);
         duty.setPrice(BigDecimal.valueOf(500));
     }
@@ -53,7 +53,7 @@ class DutyControllerTest {
         RestAssuredMockMvc.given()
                 .contentType(ContentType.JSON)
                 .body(new DutyRequestDto(duty.getMaster().getId(), duty.getOrder().getId(),
-                        duty.getPrice(), duty.getTypeOfDuty().name()))
+                        duty.getPrice(), duty.getTypeOfDuty()))
                 .when()
                 .post("/duties")
                 .then()
@@ -62,7 +62,7 @@ class DutyControllerTest {
                 .body("id", Matchers.equalTo(1))
                 .body("masterId", Matchers.equalTo(1))
                 .body("orderId", Matchers.equalTo(1))
-                .body("typeOfDuty", Matchers.equalTo("DIAGNOSTICS"));
+                .body("typeOfDuty", Matchers.equalTo("diagnostics"));
     }
 
     @Test
@@ -72,7 +72,7 @@ class DutyControllerTest {
         updatedDuty.setMaster(new Master(2L, "Gus Ostin", Collections.emptyList()));
         updatedDuty.setOrder(new Order(2L, new Auto(), "change oil",
                 null, null, null, null, null, BigDecimal.valueOf(100)));
-        updatedDuty.setTypeOfDuty(Duty.TypeOfDuty.CHANGE_OIL);
+        updatedDuty.setTypeOfDuty("change oil");
         updatedDuty.setPaymentStatus(Duty.PaymentStatus.UNPAID);
         updatedDuty.setPrice(BigDecimal.valueOf(500));
         Mockito.when(dutyService.save(Mockito.any(Duty.class))).thenReturn(updatedDuty);
@@ -80,7 +80,7 @@ class DutyControllerTest {
                 .queryParam("id", 1)
                 .contentType(ContentType.JSON)
                 .body(new DutyRequestDto(updatedDuty.getMaster().getId(), updatedDuty.getOrder().getId(),
-                        updatedDuty.getPrice(), updatedDuty.getTypeOfDuty().name()))
+                        updatedDuty.getPrice(), updatedDuty.getTypeOfDuty()))
                 .when()
                 .put("/duties/{id}", 1)
                 .then()
@@ -89,7 +89,7 @@ class DutyControllerTest {
                 .body("id", Matchers.equalTo(1))
                 .body("masterId", Matchers.equalTo(2))
                 .body("orderId", Matchers.equalTo(2))
-                .body("typeOfDuty", Matchers.equalTo("CHANGE_OIL"));
+                .body("typeOfDuty", Matchers.equalTo("change oil"));
     }
 
     @Test

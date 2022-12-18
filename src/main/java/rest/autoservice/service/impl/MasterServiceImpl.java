@@ -29,20 +29,16 @@ public class MasterServiceImpl implements MasterService {
     }
 
     @Override
-    public List<Order> getFinishedOrdersById(Long id) {
-        return findById(id).getFinishedOrders();
+    public List<Order> getFinishedOrdersByMasterId(Long id) {
+        return masterRepository.getFinishedOrdersByMasterId(id);
     }
 
     @Override
     public BigDecimal getSalary(Long id) {
-        Master master = findById(id);
-        List<Order> finishedOrders = master.getFinishedOrders();
+        List<Order> finishedOrders = masterRepository.getFinishedOrdersByMasterId(id);
         BigDecimal salary = BigDecimal.valueOf(0);
-        for (int i = 0; i < finishedOrders.size(); i++) {
-            if (finishedOrders.get(i).getStatus() != Order.Status.PAID) {
-                salary = salary.add(finishedOrders.get(i).getTotalPrice());
-                finishedOrders.get(i).setStatus(Order.Status.PAID);
-            }
+        for (Order finishedOrder : finishedOrders) {
+            salary = salary.add(finishedOrder.getTotalPrice());
         }
         return salary.multiply(PERCENT_FROM_DUTY_PRICE);
     }

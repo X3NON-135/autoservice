@@ -1,5 +1,6 @@
 package rest.autoservice.service.impl;
 
+import java.util.List;
 import org.springframework.stereotype.Service;
 import rest.autoservice.model.Auto;
 import rest.autoservice.model.AutoOwner;
@@ -29,19 +30,15 @@ public class AutoOwnerServiceImpl implements AutoOwnerService {
     @Override
     public AutoOwner addAuto(Long id, Auto auto) {
         AutoOwner autoOwner = findById(id);
-        autoOwner.getAutos().add(auto);
+        List<Auto> autos = autoOwner.getAutos();
+        autos.add(auto);
+        autoOwner.setAutos(autos);
+        save(autoOwner);
         return autoOwner;
     }
 
     @Override
-    public AutoOwner addOrder(Long id, Order order) {
-        AutoOwner autoOwner = findById(id);
-        autoOwner.getOrders().add(order);
-        return autoOwner;
-    }
-
-    @Override
-    public AutoOwner getAutoOwnerByAutoId(Long id) {
-        return autoOwnerRepository.getAutoOwnerByAutoId(id);
+    public List<Order> getOrdersByAutoOwnerId(Long id) {
+        return autoOwnerRepository.getOrdersByAutoOwnerId(id);
     }
 }

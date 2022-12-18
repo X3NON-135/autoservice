@@ -51,23 +51,4 @@ class AutoOwnerServiceImplTest {
         Assertions.assertEquals(expected.getAutos().get(0).getBrand(), actual.getAutos().get(0).getBrand());
         Assertions.assertEquals(expected.getAutos().size(), actual.getAutos().size());
     }
-
-    @Test
-    void addOrderToAutoOwner_NotNull_Ok() {
-        Mockito.when(autoOwnerRepository.findById(1L)).thenReturn(Optional.of(expected));
-        Order order = new Order();
-        order.setId(1L);
-        order.setAuto(new Auto());
-        order.setDescription("some fix");
-        order.setAcceptanceDate(LocalDateTime.now());
-        order.setFinishedDate(LocalDateTime.now());
-        order.setStatus(Order.Status.ACCEPTED);
-        order.setDuties(new ArrayList<>());
-        order.setProducts(new ArrayList<>());
-        order.setTotalPrice(BigDecimal.valueOf(230));
-        AutoOwner actual = autoOwnerService.addOrder(1L, order);
-        expected.getOrders().add(order);
-        Assertions.assertNotNull(actual);
-        Assertions.assertEquals(expected.getOrders().size(), actual.getOrders().size());
-    }
 }

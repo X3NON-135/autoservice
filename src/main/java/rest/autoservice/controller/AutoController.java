@@ -37,7 +37,7 @@ public class AutoController {
     @ApiOperation(value = "create new Auto")
     public AutoResponseDto createAuto(@RequestBody AutoRequestDto requestDto) {
         Auto auto = requestMapper.toModel(requestDto);
-        autoOwnerService.save(autoOwnerService.addAuto(requestDto.getOwnerId(), auto));
+        autoOwnerService.addAuto(requestDto.getOwnerId(), auto);
         return responseMapper.toDto(autoService.save(auto));
     }
 
