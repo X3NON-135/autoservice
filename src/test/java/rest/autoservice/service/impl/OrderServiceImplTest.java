@@ -1,6 +1,8 @@
 package rest.autoservice.service.impl;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +30,8 @@ class OrderServiceImplTest {
     @InjectMocks
     private OrderServiceImpl orderService;
     @Mock
+    private ProductServiceImpl productService;
+    @Mock
     private OrderRepository orderRepository;
 
     @BeforeAll
@@ -35,7 +39,7 @@ class OrderServiceImplTest {
         duty = new Duty();
         duty.setMaster(new Master());
         duty.setOrder(order);
-        duty.setTypeOfDuty(Duty.TypeOfDuty.DIAGNOSTICS);
+        duty.setTypeOfDuty("diagnostics");
         duty.setPrice(BigDecimal.valueOf(500));
 
         product = new Product();
@@ -58,21 +62,22 @@ class OrderServiceImplTest {
     @Test
     void calculatePriceForOrder_Ok() {
         order.getProducts().add(product);
-        Mockito.when(orderRepository.findById(1L)).thenReturn(Optional.of(order));
+        Mockito.when(orderRepository.findByOrderId(1L)).thenReturn(Optional.of(order));
         BigDecimal actualPrice = orderService.calculatePriceForOrder(1L).getTotalPrice();
         // expected price = (500 + 200) - [(500 + 200) * 0.02] = 686
         BigDecimal expectedPrice = BigDecimal.valueOf(686);
-        Assertions.assertEquals(expectedPrice, actualPrice);
+        Assertions.assertEquals(expectedPrice, actualPrice.round(new MathContext(3)));
     }
 
     @Test
     void addProductToOrder_NotNull_Ok() {
         order.getProducts().add(product);
-        Mockito.when(orderRepository.findById(1L)).thenReturn(Optional.of(order));
+        Mockito.when(orderRepository.findByOrderId(1L)).thenReturn(Optional.of(order));
         Product newProduct = new Product();
         newProduct.setId(2L);
         newProduct.setTitle("tiring belt");
         newProduct.setPrice(BigDecimal.valueOf(353));
+        Mockito.when(productService.save(newProduct)).thenReturn(newProduct);
         Order actual = orderService.addProductToOrder(1L, newProduct);
         Assertions.assertNotNull(actual.getProducts().get(1));
         Assertions.assertEquals(order.getProducts().size(), actual.getProducts().size());
