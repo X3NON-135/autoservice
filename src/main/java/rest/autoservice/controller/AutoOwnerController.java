@@ -56,8 +56,7 @@ public class AutoOwnerController {
     @GetMapping("/{id}/orders")
     @ApiOperation(value = "get Auto Owner's orders by Owner's id")
     public List<OrderResponseDto> getOwnersOrders(@PathVariable Long id) {
-        AutoOwner autoOwner = autoOwnerService.findById(id);
-        return autoOwner.getOrders().stream()
+        return autoOwnerService.getOrdersByAutoOwnerId(id).stream()
                 .map(orderMapper::toDto)
                 .collect(Collectors.toList());
     }
