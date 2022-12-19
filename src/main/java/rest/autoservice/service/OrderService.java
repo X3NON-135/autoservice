@@ -1,5 +1,6 @@
 package rest.autoservice.service;
 
+import java.util.List;
 import rest.autoservice.model.Order;
 import rest.autoservice.model.Product;
 
@@ -13,4 +14,6 @@ public interface OrderService {
     Order calculatePriceForOrder(Long id);
 
     Order addProductToOrder(Long orderId, Product product);
+
+    List<Order> getFinishedOrdersByMasterId(Long id);
 }

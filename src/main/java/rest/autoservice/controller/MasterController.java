@@ -19,20 +19,24 @@ import rest.autoservice.mapper.ResponseDtoMapper;
 import rest.autoservice.mapper.impl.OrderMapper;
 import rest.autoservice.model.Master;
 import rest.autoservice.service.MasterService;
+import rest.autoservice.service.OrderService;
 
 @RestController
 @RequestMapping("/masters")
 public class MasterController {
     private final MasterService masterService;
+    private final OrderService orderService;
     private final OrderMapper orderMapper;
     private final RequestDtoMapper<MasterRequestDto, Master> requestMapper;
     private final ResponseDtoMapper<MasterResponseDto, Master> responseMapper;
 
     public MasterController(MasterService masterService,
+                            OrderService orderService,
                             OrderMapper orderMapper,
                             RequestDtoMapper<MasterRequestDto, Master> requestMapper,
                             ResponseDtoMapper<MasterResponseDto, Master> responseMapper) {
         this.masterService = masterService;
+        this.orderService = orderService;
         this.orderMapper = orderMapper;
         this.requestMapper = requestMapper;
         this.responseMapper = responseMapper;
@@ -57,7 +61,7 @@ public class MasterController {
     @GetMapping("/{id}/orders")
     @ApiOperation(value = "get Master's orders by Master's id")
     public List<OrderResponseDto> getFinishedOrdersById(@PathVariable Long id) {
-        return masterService.getFinishedOrdersByMasterId(id).stream()
+        return orderService.getFinishedOrdersByMasterId(id).stream()
                 .map(orderMapper::toDto)
                 .collect(Collectors.toList());
     }
