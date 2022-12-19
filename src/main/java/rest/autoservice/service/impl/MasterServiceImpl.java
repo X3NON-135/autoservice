@@ -7,14 +7,17 @@ import rest.autoservice.model.Master;
 import rest.autoservice.model.Order;
 import rest.autoservice.repository.MasterRepository;
 import rest.autoservice.service.MasterService;
+import rest.autoservice.service.OrderService;
 
 @Service
 public class MasterServiceImpl implements MasterService {
     private static final BigDecimal PERCENT_FROM_DUTY_PRICE = BigDecimal.valueOf(0.4);
     private final MasterRepository masterRepository;
+    private final OrderService orderService;
 
-    public MasterServiceImpl(MasterRepository masterRepository) {
+    public MasterServiceImpl(MasterRepository masterRepository, OrderService orderService) {
         this.masterRepository = masterRepository;
+        this.orderService = orderService;
     }
 
     @Override
@@ -29,13 +32,8 @@ public class MasterServiceImpl implements MasterService {
     }
 
     @Override
-    public List<Order> getFinishedOrdersByMasterId(Long id) {
-        return masterRepository.getFinishedOrdersByMasterId(id);
-    }
-
-    @Override
     public BigDecimal getSalary(Long id) {
-        List<Order> finishedOrders = masterRepository.getFinishedOrdersByMasterId(id);
+        List<Order> finishedOrders = orderService.getFinishedOrdersByMasterId(id);
         BigDecimal salary = BigDecimal.valueOf(0);
         for (Order finishedOrder : finishedOrders) {
             salary = salary.add(finishedOrder.getTotalPrice());

@@ -16,6 +16,7 @@ import rest.autoservice.model.Auto;
 import rest.autoservice.model.Master;
 import rest.autoservice.model.Order;
 import rest.autoservice.repository.MasterRepository;
+import rest.autoservice.service.OrderService;
 
 @ExtendWith(MockitoExtension.class)
 class MasterServiceImplTest {
@@ -23,6 +24,8 @@ class MasterServiceImplTest {
     private static Master master;
     @InjectMocks
     private MasterServiceImpl masterService;
+    @Mock
+    private OrderService orderService;
     @Mock
     private MasterRepository masterRepository;
 
@@ -47,8 +50,8 @@ class MasterServiceImplTest {
 
     @Test
     void getSalary_ByFinishedOrder_Ok() {
-        Mockito.when(masterRepository.getFinishedOrdersByMasterId(1L)).thenReturn(List.of(order));
-        List<Order> actual = masterService.getFinishedOrdersByMasterId(1L);
+        Mockito.when(orderService.getFinishedOrdersByMasterId(1L)).thenReturn(List.of(order));
+        List<Order> actual = orderService.getFinishedOrdersByMasterId(1L);
         BigDecimal expectedTotalPrice = BigDecimal.valueOf(92.0);
         Assertions.assertNotNull(actual);
         Assertions.assertEquals(expectedTotalPrice, masterService.getSalary(1L));

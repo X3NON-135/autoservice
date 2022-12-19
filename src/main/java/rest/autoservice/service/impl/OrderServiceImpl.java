@@ -74,4 +74,9 @@ public class OrderServiceImpl implements OrderService {
         save(order);
         return order;
     }
+
+    @Override
+    public List<Order> getFinishedOrdersByMasterId(Long id) {
+        return orderRepository.getFinishedOrdersByMasterId(id);
+    }
 }
