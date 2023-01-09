@@ -1,0 +1,57 @@
+<label>
+  <div class="box">
+    <h1 class="title">
+      CREATE DUTY
+    </h1>
+    <from [formGroup]="reactiveForm" (ngSubmit)="save()" novalidate>
+      <div class="form-group">
+        <label class="text">Duty id:</label>
+        <input type="number" class="input form-control" formControlName="id" placeholder="id" ngModel>
+      </div>
+      <div class="form-group">
+        <label class="text">Duty master id:</label>
+        <input type="number" class="input form-control" formControlName="masterId" placeholder="master Id" ngModel>
+      </div>
+      <div class="form-group">
+        <label class="text">Duty price:</label>
+        <input type="number" class="input form-control" formControlName="price" placeholder="price" ngModel>
+      </div>
+      <div class="form-group">
+        <label class="text">Duty payment status:</label>
+        <input type="text" class="input form-control" formControlName="paymentStatus" placeholder="payment status" ngModel>
+      </div>
+      <div class="form-group">
+        <label class="text">Duty type:</label>
+        <input type="text" class="input form-control" formControlName="typeOfDuty" placeholder="duty type" ngModel>
+      </div>
+      <button class="btn" type="submit">SAVE</button>
+    </from>
+  </div>
+  <div class="box">
+    <h1 class="title">
+      UPDATE STATUS DUTY
+    </h1>
+    <form [formGroup]="updateStatusForm" (ngSubmit)="updateStatus()" novalidate>
+      <div class="from-group">
+        <label class="text">Duty id:</label>
+        <input type="number" class="input form-control" formControlName="id" placeholder="id" ngModel>
+      </div>
+      <div class="from-group">
+        <label class="text">Duty payment status:</label>
+        <select class="input form-control" name="paymentStatus" formControlName="payment status" ngModel>
+          <option value="PAID">PAID</option>
+          <option value="UNPAID">UNPAID</option>
+        </select>
+      </div>
+      <button class="btn" type="submit">UPDATE</button>
+    </form>>
+  </div>
+  <div class="item" *ngFor="let duty of duties">
+    id:{{duty.id}}<br>
+    orderId:{{duty.orderId}}<br>
+    masterId:{{duty.masterId}}<br>
+    paymentStatus:{{duty.paymentStatus}}<br>
+    typeOfDuty:{{duty.typeOfDuty}}<br>
+    price:{{duty.price}}
+  </div>
+</label>
