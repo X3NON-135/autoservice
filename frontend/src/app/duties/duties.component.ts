@@ -5,7 +5,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {FormControl, FormGroup, NgForm} from "@angular/forms";
 
 @Component({
-  selector: 'app-favors',
+  selector: 'app-duties',
   templateUrl: './duties.component.html',
   styleUrls: ['./duties.component.css']
 })
