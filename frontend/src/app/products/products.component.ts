@@ -13,7 +13,7 @@ import {FormControl, FormGroup} from "@angular/forms";
 export class ProductsComponent {
   products: Array<Product> = []
 
-  partForm = new FormGroup({
+  productForm = new FormGroup({
     id: new FormControl(0),
     title: new FormControl(''),
     price: new FormControl(0),
@@ -32,9 +32,9 @@ export class ProductsComponent {
   };
 
   save(): void {
-    let id = this.partForm.controls.id.value;
-    let title = this.partForm.controls.title.value;
-    let price = this.partForm.controls.price.value;
+    let id = this.productForm.controls.id.value;
+    let title = this.productForm.controls.title.value;
+    let price = this.productForm.controls.price.value;
     if (!title || !price) {
       return;
     }
