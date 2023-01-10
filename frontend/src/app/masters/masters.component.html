@@ -1,0 +1,61 @@
+<label>
+  <div class="box">
+    <h1 class="title">
+      CREATE MASTERS
+    </h1>
+    <form [formGroup]="mastersForm" (ngSubmit)="save()" novalidate>
+      <div class="form-group">
+        <label class="text">Master id:</label>
+        <input type="number" class="input form-control" formControlName="id" placeholder="id" ngModel>
+      </div>
+      <div>
+        <label class="text">Master full name:</label>
+        <input type="text" class="input form-control" formControlName="fullName" placeholder="full name" ngModel>
+      </div>
+      <button class="btn" type="submit">SAVE</button>
+    </form>
+  </div>
+  <div class="box">
+    <h1 class="title">
+      GET COMPLETED ORDERS
+    </h1>
+    <form [formGroup]="masterIdForm" (ngSubmit)="getOrder()" novalidate>
+      <div class="form-group">
+        <label class="text">Worker id:</label>
+        <input type="number" class="input form-control" formControlName="id" placeholder="id" ngModel>
+      </div>
+      <button class="btn" type="submit">GET</button>
+    </form>
+  </div>
+  <div class="box">
+    <h1 class="title">
+      GET MASTERS SALARY
+    </h1>
+    <form [formGroup]="salaryForm" (ngSubmit)="getSalary()" novalidate>
+      <div class="from-group">
+        <label class="text">Master id:</label>
+        <input type="number" class="input form-control" formControlName="masterId" placeholder="master id" ngModel>
+      </div>
+      <div class="from-group">
+        <label class="text">Order id:</label>
+        <input type="number" class="input form-control" formControlName="orderId" placeholder="order id" ngModel>
+      </div>
+      <div>
+        <label class="text">SALARY:</label>
+        <input type="number" class="show" [value]="salary" readonly>
+      </div>
+      <button class="btn" type="submit">GET</button>
+    </form>
+  </div>
+  <div class="item" *ngFor="let order of orders">
+    id:{{order.id}}<br>
+    carId:{{order.carId}}<br>
+    problem:{{order.problemDescription}}<br>
+    date:{{order.acceptanceDate}}
+  </div>
+  <div class="item" *ngFor="let master of masters">
+    id:{{master.id}}<br>
+    firstName:{{master.firstName}}<br>
+    lastName:{{master.lastName}}
+  </div>
+</label>
