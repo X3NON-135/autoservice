@@ -1,7 +1,7 @@
 <label>
   <div class="box">
     <h1 class="title">
-      CREATE/SAVE CUSTOMER
+      CREATE/SAVE OWNER
     </h1>
     <form [formGroup]="reactiveForm" (ngSubmit)="save()" novalidate>
       <div class="from-group">
@@ -9,12 +9,8 @@
         <input type="number" class="input form-control" formControlName="id" placeholder="id" ngModel>
       </div>
       <div class="from-group">
-        <label class="text">Customer first name:</label>
-        <input type="text" class="input form-control" formControlName="firstName" placeholder="first name" ngModel>
-      </div>
-      <div class="from-group">
-        <label class="text">Customer last name:</label>
-        <input type="text" class="input form-control" formControlName="lastName" placeholder="last name" ngModel>
+        <label class="text">Customer full name:</label>
+        <input type="text" class="input form-control" formControlName="fullName" placeholder="full name" ngModel>
       </div>
       <button class="btn" type="submit">SAVE</button>
     </form>>
