@@ -1,0 +1,39 @@
+<label>
+  <div class="box">
+    <form [formGroup]="reactiveForm" (ngSubmit)="save()" novalidate>
+      <div class="form-group">
+        <label class="text">Auto id:</label>
+        <input type="number" class="input form-control" formControlName="id" placeholder="id" ngModel>
+      </div>
+      <div class="form-group">
+        <label class="text">Auto brand:</label>
+        <input type="text" class="input form-control" formControlName="brand" placeholder="brand" ngModel>
+      </div>
+      <div class="form-group">
+        <label class="text">Auto model:</label>
+        <input type="text" class="input form-control" formControlName="model" placeholder="model" ngModel>
+      </div>
+      <div class="form-group">
+        <label class="text">Auto manufacture date:</label>
+        <input type="date" step="any" class="input form-control" formControlName="manufactureDate" placeholder="manufactureDate" ngModel>
+      </div>
+      <div class="form-group">
+        <label class="text">Auto number:</label>
+        <input type="text" class="input form-control" formControlName="number" placeholder="number" ngModel>
+      </div>
+      <div class="form-group">
+        <label class="text">Auto owner id:</label>
+        <input type="number" class="input form-control" formControlName="ownerId" placeholder="owner id" ngModel>
+      </div>
+      <button class="btn" type="submit">SAVE</button>
+    </form>
+  </div>
+  <div class="item" *ngFor="let auto of autos">
+    id:{{auto.id}}<br>
+    brand:{{auto.brand}}<br>
+    model:{{auto.model}}<br>
+    manufactureDate:{{auto.manufactureDate}}<br>
+    number:{{auto.number}}<br>
+    ownerId:{{auto.ownerId}}<br>
+  </div>
+</label>
