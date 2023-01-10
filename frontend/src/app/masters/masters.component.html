@@ -1,7 +1,7 @@
 <label>
   <div class="box">
     <h1 class="title">
-      CREATE MASTERS
+      ADD MASTER
     </h1>
     <form [formGroup]="masterForm" (ngSubmit)="save()" novalidate>
       <div class="form-group">
@@ -21,7 +21,7 @@
     </h1>
     <form [formGroup]="masterIdForm" (ngSubmit)="getOrder()" novalidate>
       <div class="form-group">
-        <label class="text">Worker id:</label>
+        <label class="text">Master id:</label>
         <input type="number" class="input form-control" formControlName="id" placeholder="id" ngModel>
       </div>
       <button class="btn" type="submit">GET</button>
@@ -29,7 +29,7 @@
   </div>
   <div class="box">
     <h1 class="title">
-      GET MASTERS SALARY
+      GET MASTER'S SALARY
     </h1>
     <form [formGroup]="salaryForm" (ngSubmit)="getSalary()" novalidate>
       <div class="form-group">
@@ -41,7 +41,7 @@
         <input type="number" class="input form-control" formControlName="orderId" placeholder="order id" ngModel>
       </div>
       <div>
-        <label class="text">SALARY:</label>
+        <label class="text">Salary:</label>
         <input type="number" class="show" [value]="salary" readonly>
       </div>
       <button class="btn" type="submit">GET</button>
