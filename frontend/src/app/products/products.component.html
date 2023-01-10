@@ -1,0 +1,24 @@
+<label>
+  <div class="box">
+    <form [formGroup]="productForm" (ngSubmit)="save()" novalidate>
+      <div class="from-group">
+        <label class="text">Product id:</label>
+        <input type="number" class="input form-control" formControlName="id" placeholder="id" ngModel>
+      </div>
+      <div>
+        <label class="text">Product title:</label>
+        <input type="text" class="input form-control" formControlName="title" placeholder="title" ngModel>
+      </div>
+      <div class="from-group">
+        <label class="text">Product price:</label>
+        <input type="number" step="any" class="input form-control" formControlName="price" placeholder="price" ngModel>
+      </div>
+      <button class="btn" type="submit">SAVE</button>
+    </form>
+  </div>
+  <div class="item" *ngFor="let product of products">
+    id:{{product.id}}<br>
+    title:{{product.title}}<br>
+    price:{{product.price}}
+  </div>
+</label>
