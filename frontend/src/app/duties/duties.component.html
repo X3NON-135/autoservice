@@ -3,7 +3,7 @@
     <h1 class="title">
       CREATE DUTY
     </h1>
-    <from [formGroup]="reactiveForm" (ngSubmit)="save()" novalidate>
+    <form [formGroup]="reactiveForm" (ngSubmit)="save()" novalidate>
       <div class="form-group">
         <label class="text">Duty id:</label>
         <input type="number" class="input form-control" formControlName="id" placeholder="id" ngModel>
@@ -25,7 +25,7 @@
         <input type="text" class="input form-control" formControlName="typeOfDuty" placeholder="duty type" ngModel>
       </div>
       <button class="btn" type="submit">SAVE</button>
-    </from>
+    </form>
   </div>
   <div class="box">
     <h1 class="title">
