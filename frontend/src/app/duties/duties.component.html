@@ -32,11 +32,11 @@
       UPDATE STATUS DUTY
     </h1>
     <form [formGroup]="updateStatusForm" (ngSubmit)="updateStatus()" novalidate>
-      <div class="from-group">
+      <div class="form-group">
         <label class="text">Duty id:</label>
         <input type="number" class="input form-control" formControlName="id" placeholder="id" ngModel>
       </div>
-      <div class="from-group">
+      <div class="form-group">
         <label class="text">Duty payment status:</label>
         <select class="input form-control" name="paymentStatus" formControlName="payment status" ngModel>
           <option value="PAID">PAID</option>
