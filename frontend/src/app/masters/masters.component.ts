@@ -6,11 +6,11 @@ import {Master} from "../models/master";
 import {FormControl, FormGroup} from "@angular/forms";
 
 @Component({
-  selector: 'app-workers',
-  templateUrl: './workers.component.html',
-  styleUrls: ['./workers.component.css']
+  selector: 'app-masters',
+  templateUrl: './masters.component.html',
+  styleUrls: ['./masters.component.css']
 })
-export class WorkersComponent {
+export class MastersComponent {
   private url = 'http://localhost:8080/masters';
   masters: Array<Master> = []
   orders: Array<Order> = []

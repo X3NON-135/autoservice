@@ -3,7 +3,7 @@
     <h1 class="title">
       CREATE MASTERS
     </h1>
-    <form [formGroup]="mastersForm" (ngSubmit)="save()" novalidate>
+    <form [formGroup]="masterForm" (ngSubmit)="save()" novalidate>
       <div class="form-group">
         <label class="text">Master id:</label>
         <input type="number" class="input form-control" formControlName="id" placeholder="id" ngModel>
@@ -32,11 +32,11 @@
       GET MASTERS SALARY
     </h1>
     <form [formGroup]="salaryForm" (ngSubmit)="getSalary()" novalidate>
-      <div class="from-group">
+      <div class="form-group">
         <label class="text">Master id:</label>
         <input type="number" class="input form-control" formControlName="masterId" placeholder="master id" ngModel>
       </div>
-      <div class="from-group">
+      <div class="form-group">
         <label class="text">Order id:</label>
         <input type="number" class="input form-control" formControlName="orderId" placeholder="order id" ngModel>
       </div>
@@ -49,13 +49,13 @@
   </div>
   <div class="item" *ngFor="let order of orders">
     id:{{order.id}}<br>
-    carId:{{order.carId}}<br>
-    problem:{{order.problemDescription}}<br>
-    date:{{order.acceptanceDate}}
+    autoId:{{order.autoId}}<br>
+    description:{{order.description}}<br>
+    acceptanceDate:{{order.acceptanceDate}}<br>
+    finishedDate:{{order.finishedDate}}
   </div>
   <div class="item" *ngFor="let master of masters">
     id:{{master.id}}<br>
-    firstName:{{master.firstName}}<br>
-    lastName:{{master.lastName}}
+    fullName:{{master.fullName}}<br>
   </div>
 </label>
