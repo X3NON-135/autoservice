@@ -2,8 +2,8 @@ export interface Order {
   id: number;
   autoId: number;
   description: string;
-  acceptanceDate: Date;
-  finishedDate: Date;
+  acceptanceDate: string;
+  finishedDate: string;
   dutyIds: Array<number>;
   productIds: Array<number>;
   status: string;
