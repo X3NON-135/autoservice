@@ -26,6 +26,8 @@ Based on N-Tier architecture:
 * Docker
 * JUnit 5 
 * Mockito
+* TypeScript
+* Angular 15
 # Quick start
 1) Clone this repository
 2) Set up necessary fields in ```application.properties```
