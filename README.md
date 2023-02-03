@@ -5,7 +5,7 @@
 </div>
 
 # Functionality
-* App simplify job for workers to do casual paper work, such as:
+App simplify job for workers to do casual paper work, such as:
 * Register new employed Masters
 * Calculate Master's salary
 * Create new Order for client
